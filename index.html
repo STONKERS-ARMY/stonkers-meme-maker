@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>STONKERS Meme Maker</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #050706;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+  text-align: center;
+  padding: 28px 15px 18px;
+  border-bottom: 1px solid #1d3524;
+}
+
+.logo {
+  color: #39ff73;
+  font-size: 34px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.tagline {
+  color: #aaa;
+  margin-top: 7px;
+  font-size: 14px;
+}
+
+.container {
+  width: min(94%, 650px);
+  margin: 22px auto 50px;
+}
+
+.card {
+  background: #0c100d;
+  border: 1px solid #233729;
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 18px;
+}
+
+h2 {
+  margin-top: 0;
+  color: #39ff73;
+  font-size: 18px;
+}
+
+.upload {
+  display: block;
+  background: #39ff73;
+  color: #041008;
+  padding: 14px;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+#imageInput {
+  display: none;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  background: #111;
+  border: 1px solid #29332c;
+  border-radius: 12px;
+  margin-top: 16px;
+}
+
+label.control {
+  display: block;
+  color: #aaa;
+  margin: 14px 0 6px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+input[type="text"] {
+  width: 100%;
+  background: #050706;
+  border: 1px solid #304536;
+  border-radius: 9px;
+  padding: 13px;
+  color: white;
+  font-size: 16px;
+}
+
+input[type="range"] {
+  width: 100%;
+}
+
+button {
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 12px;
+  font-size: 16px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.download {
+  background: #39ff73;
+  color: #041008;
+}
+
+.reset {
+  background: #1b211d;
+  color: white;
+}
+
+.note {
+  color: #777;
+  text-align: center;
+  font-size: 12px;
+  margin-top: 16px;
+}
+
+footer {
+  text-align: center;
+  color: #666;
+  padding: 20px;
+  font-size: 12px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">STONKERS 🪖</div>
+  <div class="tagline">THE INTERNET'S WALL STREET</div>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <h2>STONKERS MEME MAKER</h2>
+
+    <p>
+      Wall Street has Bloomberg.<br>
+      We have this. 😂📈
+    </p>
+
+    <label class="upload">
+      📷 CHOOSE YOUR IMAGE
+      <input type="file" id="imageInput" accept="image/*">
+    </label>
+
+    <canvas id="canvas" width="1080" height="1080"></canvas>
+  </div>
+
+  <div class="card">
+
+    <h2>BUILD YOUR MEME</h2>
+
+    <label class="control">TOP TEXT</label>
+    <input
+      id="topText"
+      type="text"
+      maxlength="80"
+      placeholder="WHEN SOL STARTS PUMPING..."
+    >
+
+    <label class="control">BOTTOM TEXT</label>
+    <input
+      id="bottomText"
+      type="text"
+      maxlength="80"
+      placeholder="STONKERS REPORTING FOR DUTY 🪖"
+    >
+
+    <label class="control">TEXT SIZE</label>
+    <input
+      id="fontSize"
+      type="range"
+      min="35"
+      max="100"
+      value="65"
+    >
+
+    <button class="download" id="downloadBtn">
+      ⬇️ SAVE MEME
+    </button>
+
+    <button class="reset" id="resetBtn">
+      RESET
+    </button>
+
+    <div class="note">
+      Built From Zero • No Surrender • No Retreat
+    </div>
+
+  </div>
+
+</div>
+
+<footer>
+  STONKERS ARMY 🪖 • $STNKS
+</footer>
+
+<script>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+const imageInput = document.getElementById("imageInput");
+const topText = document.getElementById("topText");
+const bottomText = document.getElementById("bottomText");
+const fontSize = document.getElementById("fontSize");
+const downloadBtn = document.getElementById("downloadBtn");
+const resetBtn = document.getElementById("resetBtn");
+
+let image = null;
+
+function drawPlaceholder() {
+  ctx.fillStyle = "#080b09";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ctx.textAlign = "center";
+
+  ctx.fillStyle = "#39ff73";
+  ctx.font = "bold 65px Arial";
+  ctx.fillText("STONKERS", canvas.width / 2, 470);
+
+  ctx.fillStyle = "#ffffff";
+  ctx.font = "40px Arial";
+  ctx.fillText("CHOOSE AN IMAGE TO START", canvas.width / 2, 540);
+
+  ctx.fillStyle = "#777";
+  ctx.font = "28px Arial";
+  ctx.fillText("Built From Zero 🪖", canvas.width / 2, 600);
+}
+
+function fitImage(img) {
+  const scale = Math.max(
+    canvas.width / img.width,
+    canvas.height / img.height
+  );
+
+  const width = img.width * scale;
+  const height = img.height * scale;
+
+  const x = (canvas.width - width) / 2;
+  const y = (canvas.height - height) / 2;
+
+  ctx.drawImage(img, x, y, width, height);
+}
+
+function drawText(text, y, size) {
+  if (!text.trim()) return;
+
+  ctx.font = `900 ${size}px Arial`;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+
+  ctx.lineWidth = Math.max(7, size / 8);
+  ctx.strokeStyle = "black";
+  ctx.fillStyle = "white";
+
+  const maxWidth = canvas.width - 80;
+
+  ctx.strokeText(
+    text.toUpperCase(),
+    canvas.width / 2,
+    y,
+    maxWidth
+  );
+
+  ctx.fillText(
+    text.toUpperCase(),
+    canvas.width / 2,
+    y,
+    maxWidth
+  );
+}
+
+function draw() {
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  if (image) {
+    fitImage(image);
+  } else {
+    drawPlaceholder();
+  }
+
+  const size = Number(fontSize.value);
+
+  drawText(
+    topText.value,
+    90,
+    size
+  );
+
+  drawText(
+    bottomText.value,
+    canvas.height - 90,
+    size
+  );
+
+  if (image) {
+    ctx.font = "bold 25px Arial";
+    ctx.textAlign = "right";
+    ctx.fillStyle = "rgba(57,255,115,.85)";
+    ctx.strokeStyle = "rgba(0,0,0,.8)";
+    ctx.lineWidth = 5;
+
+    ctx.strokeText(
+      "STONKERS 🪖",
+      canvas.width - 25,
+      canvas.height - 20
+    );
+
+    ctx.fillText(
+      "STONKERS 🪖",
+      canvas.width - 25,
+      canvas.height - 20
+    );
+  }
+}
+
+imageInput.addEventListener("change", function(event) {
+
+  const file = event.target.files[0];
+
+  if (!file) return;
+
+  const reader = new FileReader();
+
+  reader.onload = function(e) {
+
+    const newImage = new Image();
+
+    newImage.onload = function() {
+      image = newImage;
+      draw();
+    };
+
+    newImage.src = e.target.result;
+  };
+
+  reader.readAsDataURL(file);
+});
+
+topText.addEventListener("input", draw);
+bottomText.addEventListener("input", draw);
+fontSize.addEventListener("input", draw);
+
+downloadBtn.addEventListener("click", function() {
+
+  if (!image) {
+    alert("Choose an image first 🪖");
+    return;
+  }
+
+  draw();
+
+  const link = document.createElement("a");
+
+  link.download = "stonkers-meme.png";
+  link.href = canvas.toDataURL("image/png");
+
+  link.click();
+});
+
+resetBtn.addEventListener("click", function() {
+
+  image = null;
+
+  imageInput.value = "";
+  topText.value = "";
+  bottomText.value = "";
+  fontSize.value = 65;
+
+  draw();
+});
+
+draw();
+</script>
+
+</body>
+</html>
