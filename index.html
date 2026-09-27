@@ -2,139 +2,255 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>STONKERS Meme Maker</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#050706">
+<title>STONKERS Meme Maker V2</title>
 
 <style>
-* {
-  box-sizing: border-box;
+*{box-sizing:border-box}
+:root{
+  --green:#39ff73;
+  --bg:#050706;
+  --panel:#0a0f0b;
+  --panel2:#111713;
+  --border:#1c3826;
+  --muted:#879087;
+}
+body{
+  margin:0;
+  background:var(--bg);
+  color:#fff;
+  font-family:Arial,Helvetica,sans-serif;
+}
+header{
+  text-align:center;
+  padding:24px 14px 18px;
+  border-bottom:1px solid var(--border);
+}
+.logo{
+  color:var(--green);
+  font-size:34px;
+  font-weight:900;
+  letter-spacing:2px;
+}
+.tagline{
+  color:#aaa;
+  font-size:14px;
+  margin-top:8px;
+}
+.wrap{
+  width:min(96%,700px);
+  margin:22px auto 50px;
+}
+.card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:18px;
+  margin-bottom:18px;
+}
+h2{
+  margin:0 0 8px;
+  color:var(--green);
+  font-size:20px;
+}
+.sub{
+  color:#bbb;
+  line-height:1.4;
+  margin-bottom:16px;
+}
+button,.upload{
+  border:0;
+  border-radius:12px;
+  min-height:48px;
+  padding:12px 14px;
+  font-weight:900;
+  font-size:14px;
+  cursor:pointer;
+}
+.primary{
+  background:var(--green);
+  color:#031008;
+}
+.secondary{
+  background:#1a201c;
+  color:#fff;
+  border:1px solid #29342d;
+}
+.danger{
+  background:#261111;
+  color:#ff8f8f;
+  border:1px solid #572626;
+}
+.upload{
+  display:block;
+  width:100%;
+  text-align:center;
+  background:var(--green);
+  color:#031008;
+}
+input[type=file]{display:none}
+
+.templates{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-top:12px;
+}
+.template{
+  min-height:80px;
+  background:#111713;
+  border:1px dashed #31513a;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:#718078;
+  font-size:11px;
+  padding:8px;
+}
+.template.ready{
+  border-style:solid;
+  color:#fff;
+  cursor:pointer;
+  background-size:cover;
+  background-position:center;
 }
 
-body {
-  margin: 0;
-  background: #050706;
-  color: white;
-  font-family: Arial, Helvetica, sans-serif;
+.canvas-shell{
+  position:relative;
+  width:100%;
+  background:#020302;
+  border:1px solid #27342b;
+  border-radius:16px;
+  overflow:hidden;
+  touch-action:none;
+}
+canvas{
+  width:100%;
+  height:auto;
+  display:block;
+  touch-action:none;
 }
 
-header {
-  text-align: center;
-  padding: 28px 15px 18px;
-  border-bottom: 1px solid #1d3524;
+.tip{
+  color:#89928b;
+  font-size:12px;
+  text-align:center;
+  margin-top:10px;
 }
 
-.logo {
-  color: #39ff73;
-  font-size: 34px;
-  font-weight: 900;
-  letter-spacing: 2px;
+.row{
+  display:flex;
+  gap:8px;
+  margin-top:10px;
+}
+.row>*{flex:1}
+
+.format-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+}
+.format.active{
+  background:var(--green);
+  color:#041108;
 }
 
-.tagline {
-  color: #aaa;
-  margin-top: 7px;
-  font-size: 14px;
+.toolbar{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
+  margin-top:12px;
 }
 
-.container {
-  width: min(94%, 650px);
-  margin: 22px auto 50px;
+.editor{
+  margin-top:14px;
+  background:#080b09;
+  border:1px solid #26352a;
+  border-radius:14px;
+  padding:14px;
+}
+label{
+  display:block;
+  color:#aeb5af;
+  font-size:12px;
+  font-weight:bold;
+  margin:12px 0 6px;
+}
+input[type=text],select{
+  width:100%;
+  background:#050706;
+  border:1px solid #334238;
+  border-radius:10px;
+  color:white;
+  padding:12px;
+  font-size:15px;
+}
+input[type=range]{width:100%}
+
+.colors{
+  display:flex;
+  gap:9px;
+  margin-top:8px;
+}
+.color{
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  border:3px solid #333;
+  flex:none;
+}
+.color.active{border-color:var(--green)}
+.white{background:#fff}
+.green{background:#39ff73}
+.black{background:#000}
+.yellow{background:#ffe84a}
+.red{background:#ff4141}
+
+.stickers{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+}
+.sticker{
+  background:#151b17;
+  border:1px solid #2a3b30;
+  border-radius:12px;
+  min-height:55px;
+  color:white;
+  font-size:20px;
+}
+.sticker.words{
+  font-size:10px;
+  color:var(--green);
 }
 
-.card {
-  background: #0c100d;
-  border: 1px solid #233729;
-  border-radius: 16px;
-  padding: 18px;
-  margin-bottom: 18px;
+.action-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
 }
-
-h2 {
-  margin-top: 0;
-  color: #39ff73;
-  font-size: 18px;
+.full{
+  width:100%;
+  margin-top:10px;
 }
-
-.upload {
-  display: block;
-  background: #39ff73;
-  color: #041008;
-  padding: 14px;
-  border-radius: 10px;
-  text-align: center;
-  font-weight: 900;
-  cursor: pointer;
+#saveBtn{
+  font-size:17px;
+  min-height:58px;
 }
-
-#imageInput {
-  display: none;
+.status{
+  margin-top:10px;
+  text-align:center;
+  font-size:12px;
+  color:#8e9a91;
 }
-
-canvas {
-  display: block;
-  width: 100%;
-  background: #111;
-  border: 1px solid #29332c;
-  border-radius: 12px;
-  margin-top: 16px;
-}
-
-label.control {
-  display: block;
-  color: #aaa;
-  margin: 14px 0 6px;
-  font-size: 13px;
-  font-weight: bold;
-}
-
-input[type="text"] {
-  width: 100%;
-  background: #050706;
-  border: 1px solid #304536;
-  border-radius: 9px;
-  padding: 13px;
-  color: white;
-  font-size: 16px;
-}
-
-input[type="range"] {
-  width: 100%;
-}
-
-button {
-  width: 100%;
-  border: none;
-  border-radius: 10px;
-  padding: 15px;
-  margin-top: 12px;
-  font-size: 16px;
-  font-weight: 900;
-  cursor: pointer;
-}
-
-.download {
-  background: #39ff73;
-  color: #041008;
-}
-
-.reset {
-  background: #1b211d;
-  color: white;
-}
-
-.note {
-  color: #777;
-  text-align: center;
-  font-size: 12px;
-  margin-top: 16px;
-}
-
-footer {
-  text-align: center;
-  color: #666;
-  padding: 20px;
-  font-size: 12px;
+footer{
+  text-align:center;
+  color:#555;
+  padding:15px 10px 35px;
+  font-size:12px;
 }
 </style>
 </head>
@@ -146,250 +262,901 @@ footer {
   <div class="tagline">THE INTERNET'S WALL STREET</div>
 </header>
 
-<div class="container">
+<main class="wrap">
 
-  <div class="card">
-    <h2>STONKERS MEME MAKER</h2>
+<section class="card">
+  <h2>STONKERS MEME MAKER V2</h2>
+  <div class="sub">
+    Wall Street has Bloomberg.<br>
+    We have this. 😂📈
+  </div>
 
-    <p>
-      Wall Street has Bloomberg.<br>
-      We have this. 😂📈
-    </p>
+  <label class="upload">
+    📷 UPLOAD YOUR IMAGE
+    <input id="upload" type="file" accept="image/*">
+  </label>
 
-    <label class="upload">
-      📷 CHOOSE YOUR IMAGE
-      <input type="file" id="imageInput" accept="image/*">
-    </label>
+  <label>OFFICIAL STONKERS TEMPLATES</label>
 
+  <div class="templates">
+    <div class="template">🪖<brTemplate<br>coming next</div>
+    <div class="template">📈<br>Template<br>coming next</div>
+    <div class="template">🦍<br>Template<br>coming next</div>
+    <div class="template">🚨<br>Template<br>coming next</div>
+    <div class="template">💀<br>Template<br>coming next</div>
+    <div class="template">🐂<br>Template<br>coming next</div>
+  </div>
+</section>
+
+<section class="card">
+
+  <div class="format-grid">
+    <button class="secondary format active" data-format="square">⬜ SQUARE</button>
+    <button class="secondary format" data-format="portrait">▯ PORTRAIT</button>
+    <button class="secondary format" data-format="landscape">▭ WIDE</button>
+  </div>
+
+  <div style="height:12px"></div>
+
+  <div class="canvas-shell" id="canvasShell">
     <canvas id="canvas" width="1080" height="1080"></canvas>
   </div>
 
-  <div class="card">
+  <div class="tip">
+    Drag the image to reposition it • Use the zoom control below
+  </div>
 
-    <h2>BUILD YOUR MEME</h2>
+  <label>BACKGROUND ZOOM</label>
+  <input id="zoom" type="range" min="1" max="3" value="1" step=".01">
 
-    <label class="control">TOP TEXT</label>
-    <input
-      id="topText"
-      type="text"
-      maxlength="80"
-      placeholder="WHEN SOL STARTS PUMPING..."
-    >
+  <div class="row">
+    <button id="undo" class="secondary">↶ UNDO</button>
+    <button id="redo" class="secondary">↷ REDO</button>
+  </div>
 
-    <label class="control">BOTTOM TEXT</label>
-    <input
-      id="bottomText"
-      type="text"
-      maxlength="80"
-      placeholder="STONKERS REPORTING FOR DUTY 🪖"
-    >
+</section>
 
-    <label class="control">TEXT SIZE</label>
-    <input
-      id="fontSize"
-      type="range"
-      min="35"
-      max="100"
-      value="65"
-    >
+<section class="card">
+  <h2>TEXT</h2>
 
-    <button class="download" id="downloadBtn">
-      ⬇️ SAVE MEME
-    </button>
+  <button id="addText" class="primary full">＋ ADD TEXT</button>
 
-    <button class="reset" id="resetBtn">
-      RESET
-    </button>
+  <div class="editor" id="textEditor" style="display:none">
 
-    <div class="note">
-      Built From Zero • No Surrender • No Retreat
+    <label>SELECTED TEXT</label>
+    <input id="textInput" type="text" placeholder="STONKERS REPORTING FOR DUTY">
+
+    <label>TEXT SIZE</label>
+    <input id="textSize" type="range" min="28" max="160" value="72">
+
+    <label>TEXT COLOR</label>
+
+    <div class="colors">
+      <button class="color white active" data-color="#ffffff"></button>
+      <button class="color green" data-color="#39ff73"></button>
+      <button class="color black" data-color="#000000"></button>
+      <button class="color yellow" data-color="#ffe84a"></button>
+      <button class="color red" data-color="#ff4141"></button>
+    </div>
+
+    <label>OUTLINE</label>
+    <select id="outline">
+      <option value="black">Black outline</option>
+      <option value="white">White outline</option>
+      <option value="none">No outline</option>
+    </select>
+
+    <div class="row">
+      <button id="upper" class="secondary">AA UPPERCASE</button>
+      <button id="duplicate" class="secondary">⧉ DUPLICATE</button>
+    </div>
+
+    <button id="deleteText" class="danger full">DELETE SELECTED TEXT</button>
+
+    <div class="tip">
+      Drag selected text directly on the meme.
     </div>
 
   </div>
+</section>
 
-</div>
+<section class="card">
+  <h2>STONKERS STICKERS</h2>
+
+  <div class="stickers">
+    <button class="sticker" data-sticker="🪖">🪖</button>
+    <button class="sticker" data-sticker="🦍">🦍</button>
+    <button class="sticker" data-sticker="📈">📈</button>
+    <button class="sticker" data-sticker="📉">📉</button>
+
+    <button class="sticker" data-sticker="🚀">🚀</button>
+    <button class="sticker" data-sticker="💎">💎</button>
+    <button class="sticker" data-sticker="🐂">🐂</button>
+    <button class="sticker" data-sticker="🐻">🐻</button>
+
+    <button class="sticker words" data-sticker="BUILT FROM ZERO">BUILT<br>FROM ZERO</button>
+    <button class="sticker words" data-sticker="NO SURRENDER">NO<br>SURRENDER</button>
+    <button class="sticker words" data-sticker="NO RETREAT">NO<br>RETREAT</button>
+    <button class="sticker words" data-sticker="$STNKS">$STNKS</button>
+  </div>
+
+  <div class="tip">
+    Tap a sticker, then drag it wherever you want.
+  </div>
+</section>
+
+<section class="card">
+  <h2>FINISH</h2>
+
+  <button id="saveBtn" class="primary full">⬇️ SAVE MEME</button>
+
+  <div class="action-grid">
+    <button id="shareX" class="secondary">𝕏 SHARE</button>
+    <button id="contest" class="secondary">🏆 MEME CONTEST</button>
+  </div>
+
+  <button id="reset" class="danger full">RESET EVERYTHING</button>
+
+  <div class="status">
+    Built From Zero • No Surrender • No Retreat
+  </div>
+</section>
+
+</main>
 
 <footer>
-  STONKERS ARMY 🪖 • $STNKS
+STONKERS ARMY 🪖 • $STNKS
 </footer>
 
 <script>
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
+const canvas=document.getElementById("canvas");
+const ctx=canvas.getContext("2d");
 
-const imageInput = document.getElementById("imageInput");
-const topText = document.getElementById("topText");
-const bottomText = document.getElementById("bottomText");
-const fontSize = document.getElementById("fontSize");
-const downloadBtn = document.getElementById("downloadBtn");
-const resetBtn = document.getElementById("resetBtn");
+let bg=null;
+let bgX=0,bgY=0,bgZoom=1;
+let objects=[];
+let selected=null;
+let dragging=false;
+let dragDX=0,dragDY=0;
+let bgDragging=false;
+let lastPointer={x:0,y:0};
 
-let image = null;
+let history=[];
+let historyIndex=-1;
 
-function drawPlaceholder() {
-  ctx.fillStyle = "#080b09";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+function snapshot(){
+  const state=JSON.stringify({
+    bgX,bgY,bgZoom,
+    objects:objects.map(o=>({...o}))
+  });
 
-  ctx.textAlign = "center";
+  if(history[historyIndex]===state)return;
 
-  ctx.fillStyle = "#39ff73";
-  ctx.font = "bold 65px Arial";
-  ctx.fillText("STONKERS", canvas.width / 2, 470);
+  history=history.slice(0,historyIndex+1);
+  history.push(state);
 
-  ctx.fillStyle = "#ffffff";
-  ctx.font = "40px Arial";
-  ctx.fillText("CHOOSE AN IMAGE TO START", canvas.width / 2, 540);
-
-  ctx.fillStyle = "#777";
-  ctx.font = "28px Arial";
-  ctx.fillText("Built From Zero 🪖", canvas.width / 2, 600);
+  if(history.length>30)history.shift();
+  historyIndex=history.length-1;
 }
 
-function fitImage(img) {
-  const scale = Math.max(
-    canvas.width / img.width,
-    canvas.height / img.height
-  );
+function restore(state){
+  if(!state)return;
 
-  const width = img.width * scale;
-  const height = img.height * scale;
+  const s=JSON.parse(state);
 
-  const x = (canvas.width - width) / 2;
-  const y = (canvas.height - height) / 2;
+  bgX=s.bgX;
+  bgY=s.bgY;
+  bgZoom=s.bgZoom;
+  objects=s.objects;
+  selected=null;
 
-  ctx.drawImage(img, x, y, width, height);
+  document.getElementById("zoom").value=bgZoom;
+
+  updateEditor();
+  draw();
 }
 
-function drawText(text, y, size) {
-  if (!text.trim()) return;
+function drawPlaceholder(){
+  ctx.fillStyle="#050706";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
 
-  ctx.font = `900 ${size}px Arial`;
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
+  ctx.textAlign="center";
 
-  ctx.lineWidth = Math.max(7, size / 8);
-  ctx.strokeStyle = "black";
-  ctx.fillStyle = "white";
+  ctx.fillStyle="#39ff73";
+  ctx.font="bold 70px Arial";
+  ctx.fillText("STONKERS",canvas.width/2,canvas.height/2-25);
 
-  const maxWidth = canvas.width - 80;
-
-  ctx.strokeText(
-    text.toUpperCase(),
-    canvas.width / 2,
-    y,
-    maxWidth
-  );
-
+  ctx.fillStyle="#ffffff";
+  ctx.font="34px Arial";
   ctx.fillText(
-    text.toUpperCase(),
-    canvas.width / 2,
-    y,
-    maxWidth
+    "CHOOSE AN IMAGE TO START",
+    canvas.width/2,
+    canvas.height/2+45
+  );
+
+  ctx.fillStyle="#555";
+  ctx.font="24px Arial";
+  ctx.fillText(
+    "Built From Zero 🪖",
+    canvas.width/2,
+    canvas.height/2+95
   );
 }
-
-function draw() {
-
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  if (image) {
-    fitImage(image);
-  } else {
+  function drawBackground(){
+  if(!bg){
     drawPlaceholder();
+    return;
   }
 
-  const size = Number(fontSize.value);
+  ctx.fillStyle="#000";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
 
-  drawText(
-    topText.value,
-    90,
-    size
+  const cover=Math.max(
+    canvas.width/bg.width,
+    canvas.height/bg.height
   );
 
-  drawText(
-    bottomText.value,
-    canvas.height - 90,
-    size
-  );
+  const scale=cover*bgZoom;
+  const w=bg.width*scale;
+  const h=bg.height*scale;
 
-  if (image) {
-    ctx.font = "bold 25px Arial";
-    ctx.textAlign = "right";
-    ctx.fillStyle = "rgba(57,255,115,.85)";
-    ctx.strokeStyle = "rgba(0,0,0,.8)";
-    ctx.lineWidth = 5;
+  const x=(canvas.width-w)/2+bgX;
+  const y=(canvas.height-h)/2+bgY;
 
-    ctx.strokeText(
-      "STONKERS 🪖",
-      canvas.width - 25,
-      canvas.height - 20
+  ctx.drawImage(bg,x,y,w,h);
+}
+
+function wrapLines(text,maxWidth){
+  const words=text.split(" ");
+  const lines=[];
+  let line="";
+
+  for(const word of words){
+    const test=line ? line+" "+word : word;
+
+    if(ctx.measureText(test).width>maxWidth && line){
+      lines.push(line);
+      line=word;
+    }else{
+      line=test;
+    }
+  }
+
+  if(line)lines.push(line);
+
+  return lines;
+}
+
+function drawObject(o,isSelected){
+  ctx.save();
+
+  ctx.font=`900 ${o.size}px Arial`;
+  ctx.textAlign="center";
+  ctx.textBaseline="middle";
+  ctx.lineJoin="round";
+
+  const lines=wrapLines(o.text,canvas.width*.88);
+  const lineHeight=o.size*1.05;
+  const startY=o.y-((lines.length-1)*lineHeight)/2;
+
+  let maxW=0;
+
+  lines.forEach((line,i)=>{
+    maxW=Math.max(
+      maxW,
+      ctx.measureText(line).width
     );
+
+    if(o.outline!=="none"){
+      ctx.strokeStyle=
+        o.outline==="white"
+        ? "#fff"
+        : "#000";
+
+      ctx.lineWidth=Math.max(
+        4,
+        o.size*.09
+      );
+
+      ctx.strokeText(
+        line,
+        o.x,
+        startY+i*lineHeight
+      );
+    }
+
+    ctx.fillStyle=o.color;
 
     ctx.fillText(
-      "STONKERS 🪖",
-      canvas.width - 25,
-      canvas.height - 20
+      line,
+      o.x,
+      startY+i*lineHeight
+    );
+  });
+
+  o.w=maxW;
+
+  o.h=Math.max(
+    lineHeight,
+    lines.length*lineHeight
+  );
+
+  if(isSelected){
+    ctx.strokeStyle="#39ff73";
+    ctx.lineWidth=5;
+    ctx.setLineDash([15,10]);
+
+    ctx.strokeRect(
+      o.x-o.w/2-18,
+      o.y-o.h/2-18,
+      o.w+36,
+      o.h+36
     );
   }
+
+  ctx.restore();
 }
 
-imageInput.addEventListener("change", function(event) {
+function watermark(){
+  ctx.save();
 
-  const file = event.target.files[0];
+  ctx.textAlign="right";
+  ctx.font="900 22px Arial";
+  ctx.lineWidth=5;
+  ctx.strokeStyle="#000";
 
-  if (!file) return;
+  ctx.strokeText(
+    "STONKERS 🪖",
+    canvas.width-22,
+    canvas.height-24
+  );
 
-  const reader = new FileReader();
+  ctx.fillStyle="#39ff73";
 
-  reader.onload = function(e) {
+  ctx.fillText(
+    "STONKERS 🪖",
+    canvas.width-22,
+    canvas.height-24
+  );
 
-    const newImage = new Image();
+  ctx.restore();
+}
 
-    newImage.onload = function() {
-      image = newImage;
+function draw(){
+  drawBackground();
+
+  objects.forEach(o=>
+    drawObject(o,o===selected)
+  );
+
+  watermark();
+}
+
+draw();
+snapshot();
+
+document
+.getElementById("upload")
+.addEventListener("change",e=>{
+
+  const file=e.target.files[0];
+
+  if(!file)return;
+
+  const reader=new FileReader();
+
+  reader.onload=ev=>{
+    const img=new Image();
+
+    img.onload=()=>{
+      bg=img;
+      bgX=0;
+      bgY=0;
+      bgZoom=1;
+
+      document.getElementById("zoom").value=1;
+
+      snapshot();
       draw();
     };
 
-    newImage.src = e.target.result;
+    img.src=ev.target.result;
   };
 
   reader.readAsDataURL(file);
 });
 
-topText.addEventListener("input", draw);
-bottomText.addEventListener("input", draw);
-fontSize.addEventListener("input", draw);
+document
+.getElementById("zoom")
+.addEventListener("input",e=>{
 
-downloadBtn.addEventListener("click", function() {
+  bgZoom=parseFloat(e.target.value);
 
-  if (!image) {
-    alert("Choose an image first 🪖");
+  draw();
+});
+
+document
+.getElementById("zoom")
+.addEventListener(
+  "change",
+  snapshot
+);
+
+function addObject(
+  text="YOUR TEXT",
+  size=72,
+  color="#ffffff"
+){
+  const o={
+    text,
+    x:canvas.width/2,
+    y:canvas.height/2,
+    size,
+    color,
+    outline:"black",
+    w:0,
+    h:0
+  };
+
+  objects.push(o);
+  selected=o;
+
+  updateEditor();
+  snapshot();
+  draw();
+}
+
+document
+.getElementById("addText")
+.onclick=()=>{
+  addObject("YOUR TEXT");
+};
+
+document
+.querySelectorAll(".sticker")
+.forEach(btn=>{
+
+  btn.onclick=()=>{
+    const value=btn.dataset.sticker;
+
+    const emoji=
+      [...value].length<=3;
+
+    addObject(
+      value,
+      emoji ? 100 : 55,
+      emoji ? "#ffffff" : "#39ff73"
+    );
+  };
+});
+
+function updateEditor(){
+  const box=
+    document.getElementById("textEditor");
+
+  if(!selected){
+    box.style.display="none";
     return;
   }
 
+  box.style.display="block";
+
+  document
+  .getElementById("textInput")
+  .value=selected.text;
+
+  document
+  .getElementById("textSize")
+  .value=selected.size;
+
+  document
+  .getElementById("outline")
+  .value=selected.outline;
+
+  document
+  .querySelectorAll(".color")
+  .forEach(b=>{
+
+    b.classList.toggle(
+      "active",
+      b.dataset.color===selected.color
+    );
+  });
+}
+  document
+.getElementById("textInput")
+.addEventListener("input",e=>{
+  if(!selected)return;
+
+  selected.text=e.target.value;
   draw();
-
-  const link = document.createElement("a");
-
-  link.download = "stonkers-meme.png";
-  link.href = canvas.toDataURL("image/png");
-
-  link.click();
 });
 
-resetBtn.addEventListener("click", function() {
+document
+.getElementById("textInput")
+.addEventListener("change",snapshot);
 
-  image = null;
+document
+.getElementById("textSize")
+.addEventListener("input",e=>{
+  if(!selected)return;
 
-  imageInput.value = "";
-  topText.value = "";
-  bottomText.value = "";
-  fontSize.value = 65;
-
+  selected.size=+e.target.value;
   draw();
 });
 
-draw();
+document
+.getElementById("textSize")
+.addEventListener("change",snapshot);
+
+document
+.querySelectorAll(".color")
+.forEach(btn=>{
+  btn.onclick=()=>{
+    if(!selected)return;
+
+    selected.color=btn.dataset.color;
+
+    updateEditor();
+    snapshot();
+    draw();
+  };
+});
+
+document
+.getElementById("outline")
+.onchange=e=>{
+  if(!selected)return;
+
+  selected.outline=e.target.value;
+
+  snapshot();
+  draw();
+};
+
+document
+.getElementById("upper")
+.onclick=()=>{
+  if(!selected)return;
+
+  selected.text=
+    selected.text.toUpperCase();
+
+  updateEditor();
+  snapshot();
+  draw();
+};
+
+document
+.getElementById("duplicate")
+.onclick=()=>{
+  if(!selected)return;
+
+  const copy={
+    ...selected,
+    x:selected.x+35,
+    y:selected.y+35
+  };
+
+  objects.push(copy);
+  selected=copy;
+
+  updateEditor();
+  snapshot();
+  draw();
+};
+
+document
+.getElementById("deleteText")
+.onclick=()=>{
+  if(!selected)return;
+
+  objects=
+    objects.filter(o=>o!==selected);
+
+  selected=null;
+
+  updateEditor();
+  snapshot();
+  draw();
+};
+
+function pointerPos(e){
+  const r=
+    canvas.getBoundingClientRect();
+
+  return{
+    x:(e.clientX-r.left)*
+      (canvas.width/r.width),
+
+    y:(e.clientY-r.top)*
+      (canvas.height/r.height)
+  };
+}
+
+function hitObject(p){
+  for(
+    let i=objects.length-1;
+    i>=0;
+    i--
+  ){
+    const o=objects[i];
+
+    if(
+      p.x>=o.x-o.w/2-30 &&
+      p.x<=o.x+o.w/2+30 &&
+      p.y>=o.y-o.h/2-30 &&
+      p.y<=o.y+o.h/2+30
+    ){
+      return o;
+    }
+  }
+
+  return null;
+}
+
+canvas.addEventListener(
+  "pointerdown",
+  e=>{
+    e.preventDefault();
+
+    const p=pointerPos(e);
+    const hit=hitObject(p);
+
+    lastPointer=p;
+
+    if(hit){
+      selected=hit;
+      dragging=true;
+      bgDragging=false;
+
+      dragDX=p.x-hit.x;
+      dragDY=p.y-hit.y;
+
+      updateEditor();
+
+    }else if(bg){
+      selected=null;
+      dragging=false;
+      bgDragging=true;
+
+      updateEditor();
+
+    }else{
+      selected=null;
+      updateEditor();
+    }
+
+    try{
+      canvas.setPointerCapture(
+        e.pointerId
+      );
+    }catch(err){}
+
+    draw();
+  }
+);
+
+canvas.addEventListener(
+  "pointermove",
+  e=>{
+    if(
+      !dragging &&
+      !bgDragging
+    )return;
+
+    e.preventDefault();
+
+    const p=pointerPos(e);
+
+    if(
+      dragging &&
+      selected
+    ){
+      selected.x=p.x-dragDX;
+      selected.y=p.y-dragDY;
+    }
+
+    if(bgDragging){
+      bgX+=p.x-lastPointer.x;
+      bgY+=p.y-lastPointer.y;
+
+      lastPointer=p;
+    }
+
+    draw();
+  }
+);
+
+function stopPointer(){
+  if(
+    dragging ||
+    bgDragging
+  ){
+    snapshot();
+  }
+
+  dragging=false;
+  bgDragging=false;
+}
+
+canvas.addEventListener(
+  "pointerup",
+  stopPointer
+);
+
+canvas.addEventListener(
+  "pointercancel",
+  stopPointer
+);
+
+document
+.getElementById("undo")
+.onclick=()=>{
+  if(historyIndex>0){
+    historyIndex--;
+
+    restore(
+      history[historyIndex]
+    );
+  }
+};
+
+document
+.getElementById("redo")
+.onclick=()=>{
+  if(
+    historyIndex <
+    history.length-1
+  ){
+    historyIndex++;
+
+    restore(
+      history[historyIndex]
+    );
+  }
+};
+  document
+.querySelectorAll(".format")
+.forEach(btn=>{
+  btn.onclick=()=>{
+    const f=btn.dataset.format;
+
+    if(f==="square"){
+      canvas.width=1080;
+      canvas.height=1080;
+    }
+
+    if(f==="portrait"){
+      canvas.width=1080;
+      canvas.height=1350;
+    }
+
+    if(f==="landscape"){
+      canvas.width=1200;
+      canvas.height=675;
+    }
+
+    bgX=0;
+    bgY=0;
+
+    objects.forEach(o=>{
+      o.x=Math.min(
+        o.x,
+        canvas.width*.9
+      );
+
+      o.y=Math.min(
+        o.y,
+        canvas.height*.9
+      );
+    });
+
+    document
+    .querySelectorAll(".format")
+    .forEach(b=>
+      b.classList.remove("active")
+    );
+
+    btn.classList.add("active");
+
+    snapshot();
+    draw();
+  };
+});
+
+document
+.getElementById("saveBtn")
+.onclick=()=>{
+  const previous=selected;
+
+  selected=null;
+  draw();
+
+  canvas.toBlob(blob=>{
+    if(!blob){
+      alert("Couldn't create meme.");
+
+      selected=previous;
+      draw();
+      return;
+    }
+
+    const url=
+      URL.createObjectURL(blob);
+
+    const a=
+      document.createElement("a");
+
+    a.href=url;
+    a.download="stonkers-meme.png";
+
+    document.body.appendChild(a);
+
+    a.click();
+    a.remove();
+
+    setTimeout(
+      ()=>URL.revokeObjectURL(url),
+      1000
+    );
+
+    selected=previous;
+    draw();
+
+  },"image/png");
+};
+
+document
+.getElementById("shareX")
+.onclick=()=>{
+  const text=encodeURIComponent(
+    "Made this on the STONKERS Meme Maker 😂🪖\n\n$STNKS"
+  );
+
+  window.open(
+    "https://twitter.com/intent/tweet?text="+text,
+    "_blank"
+  );
+};
+
+document
+.getElementById("contest")
+.onclick=()=>{
+  alert(
+    "🏆 STONKERS MEME CONTEST\n\nSubmissions open October 7, 2026 and close October 14, 2026 at 11:59 PM ET.\n\nContest submission link is coming next."
+  );
+};
+
+document
+.getElementById("reset")
+.onclick=()=>{
+  if(
+    !confirm(
+      "Reset the entire meme?"
+    )
+  )return;
+
+  bg=null;
+  bgX=0;
+  bgY=0;
+  bgZoom=1;
+
+  objects=[];
+  selected=null;
+
+  document
+  .getElementById("upload")
+  .value="";
+
+  document
+  .getElementById("zoom")
+  .value=1;
+
+  updateEditor();
+  snapshot();
+  draw();
+};
 </script>
 
 </body>
