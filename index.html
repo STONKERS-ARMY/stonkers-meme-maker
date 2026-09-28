@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <meta name="theme-color" content="#050706">
-<title>STONKERS Meme Maker V2</title>
+<title>STONKERS Meme Maker V3</title>
 
 <style>
 *{box-sizing:border-box}
@@ -14,17 +14,17 @@
   --panel:#0a0f0b;
   --panel2:#111713;
   --border:#1c3826;
-  --muted:#879087;
+  --muted:#89928b;
 }
 body{
   margin:0;
   background:var(--bg);
-  color:#fff;
+  color:white;
   font-family:Arial,Helvetica,sans-serif;
 }
 header{
   text-align:center;
-  padding:24px 14px 18px;
+  padding:28px 14px 22px;
   border-bottom:1px solid var(--border);
 }
 .logo{
@@ -35,8 +35,8 @@ header{
 }
 .tagline{
   color:#aaa;
-  font-size:14px;
   margin-top:8px;
+  font-size:14px;
 }
 .wrap{
   width:min(96%,700px);
@@ -74,7 +74,7 @@ button,.upload{
 }
 .secondary{
   background:#1a201c;
-  color:#fff;
+  color:white;
   border:1px solid #29342d;
 }
 .danger{
@@ -91,36 +91,78 @@ button,.upload{
 }
 input[type=file]{display:none}
 
+.section-title{
+  display:block;
+  color:#aeb5af;
+  font-size:12px;
+  font-weight:900;
+  margin:20px 0 10px;
+}
+
 .templates{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:8px;
-  margin-top:12px;
+  gap:9px;
 }
 .template{
-  min-height:80px;
-  background:#111713;
+  position:relative;
+  min-height:105px;
+  overflow:hidden;
+  border-radius:14px;
   border:1px dashed #31513a;
-  border-radius:12px;
+  background:#111713;
   display:flex;
-  align-items:center;
+  align-items:flex-end;
   justify-content:center;
   text-align:center;
-  color:#718078;
-  font-size:11px;
+  color:#7f8981;
   padding:8px;
 }
 .template.ready{
-  border-style:solid;
-  color:#fff;
+  border:1px solid #416c4c;
   cursor:pointer;
-  background-size:cover;
-  background-position:center;
 }
-
+.template img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.template .shade{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(transparent 40%,rgba(0,0,0,.82));
+}
+.template .name{
+  position:relative;
+  z-index:2;
+  font-size:11px;
+  font-weight:900;
+}
+.template .coming{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  font-size:11px;
+  line-height:1.35;
+}
+.format-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+}
+.format.active{
+  background:var(--green);
+  color:#041108;
+}
 .canvas-shell{
   position:relative;
   width:100%;
+  margin-top:14px;
   background:#020302;
   border:1px solid #27342b;
   border-radius:16px;
@@ -133,38 +175,42 @@ canvas{
   display:block;
   touch-action:none;
 }
-
 .tip{
   color:#89928b;
   font-size:12px;
   text-align:center;
   margin-top:10px;
+  line-height:1.4;
 }
-
+label.control{
+  display:block;
+  color:#aeb5af;
+  font-size:12px;
+  font-weight:bold;
+  margin:14px 0 6px;
+}
+input[type=text],select{
+  width:100%;
+  background:#050706;
+  border:1px solid #343238;
+  border-radius:10px;
+  color:white;
+  padding:12px;
+  font-size:15px;
+}
+input[type=range]{width:100%}
 .row{
   display:flex;
   gap:8px;
   margin-top:10px;
 }
 .row>*{flex:1}
-
-.format-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
-}
-.format.active{
-  background:var(--green);
-  color:#041108;
-}
-
 .toolbar{
   display:grid;
   grid-template-columns:repeat(2,1fr);
   gap:8px;
   margin-top:12px;
 }
-
 .editor{
   margin-top:14px;
   background:#080b09;
@@ -172,32 +218,14 @@ canvas{
   border-radius:14px;
   padding:14px;
 }
-label{
-  display:block;
-  color:#aeb5af;
-  font-size:12px;
-  font-weight:bold;
-  margin:12px 0 6px;
-}
-input[type=text],select{
-  width:100%;
-  background:#050706;
-  border:1px solid #334238;
-  border-radius:10px;
-  color:white;
-  padding:12px;
-  font-size:15px;
-}
-input[type=range]{width:100%}
-
 .colors{
   display:flex;
-  gap:9px;
+  gap:10px;
   margin-top:8px;
 }
 .color{
-  width:36px;
-  height:36px;
+  width:38px;
+  height:38px;
   border-radius:50%;
   border:3px solid #333;
   flex:none;
@@ -226,16 +254,12 @@ input[type=range]{width:100%}
   font-size:10px;
   color:var(--green);
 }
-
 .action-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:10px;
 }
-.full{
-  width:100%;
-  margin-top:10px;
-}
+.full{width:100%;margin-top:10px}
 #saveBtn{
   font-size:17px;
   min-height:58px;
@@ -248,7 +272,7 @@ input[type=range]{width:100%}
 }
 footer{
   text-align:center;
-  color:#555;
+  color:#666;
   padding:15px 10px 35px;
   font-size:12px;
 }
@@ -265,7 +289,7 @@ footer{
 <main class="wrap">
 
 <section class="card">
-  <h2>STONKERS MEME MAKER V2</h2>
+  <h2>STONKERS MEME MAKER V3</h2>
   <div class="sub">
     Wall Street has Bloomberg.<br>
     We have this. 😂📈
@@ -276,17 +300,9 @@ footer{
     <input id="upload" type="file" accept="image/*">
   </label>
 
-  <label>OFFICIAL STONKERS TEMPLATES</label>
+  <span class="section-title">OFFICIAL STONKERS TEMPLATES</span>
 
-  <div class="templates">
-    <div class="template ready" data-src="stonker-zero.png"
-      >🪖<brTemplate<br>coming next</div>
-    <div class="template">📈<br>Template<br>coming next</div>
-    <div class="template">🦍<br>Template<br>coming next</div>
-    <div class="template">🚨<br>Template<br>coming next</div>
-    <div class="template">💀<br>Template<br>coming next</div>
-    <div class="template">🐂<br>Template<br>coming next</div>
-  </div>
+  <div class="templates" id="templates"></div>
 </section>
 
 <section class="card">
@@ -294,10 +310,8 @@ footer{
   <div class="format-grid">
     <button class="secondary format active" data-format="square">⬜ SQUARE</button>
     <button class="secondary format" data-format="portrait">▯ PORTRAIT</button>
-    <button class="secondary format" data-format="landscape">▭ WIDE</button>
+    <button class="secondary format" data-format="wide">▭ WIDE</button>
   </div>
-
-  <div style="height:12px"></div>
 
   <div class="canvas-shell" id="canvasShell">
     <canvas id="canvas" width="1080" height="1080"></canvas>
@@ -307,31 +321,29 @@ footer{
     Drag the image to reposition it • Use the zoom control below
   </div>
 
-  <label>BACKGROUND ZOOM</label>
+  <label class="control">BACKGROUND ZOOM</label>
   <input id="zoom" type="range" min="1" max="3" value="1" step=".01">
 
   <div class="row">
     <button id="undo" class="secondary">↶ UNDO</button>
     <button id="redo" class="secondary">↷ REDO</button>
   </div>
-
 </section>
 
 <section class="card">
   <h2>TEXT</h2>
 
-  <button id="addText" class="primary full">＋ ADD TEXT</button>
+  <button id="addText" class="primary full">+ ADD TEXT</button>
 
   <div class="editor" id="textEditor" style="display:none">
 
-    <label>SELECTED TEXT</label>
-    <input id="textInput" type="text" placeholder="STONKERS REPORTING FOR DUTY">
+    <label class="control">SELECTED TEXT</label>
+    <input id="textInput" type="text" placeholder="STONKERS">
 
-    <label>TEXT SIZE</label>
-    <input id="textSize" type="range" min="28" max="160" value="72">
+    <label class="control">TEXT SIZE</label>
+    <input id="textSize" type="range" min="24" max="180" value="80">
 
-    <label>TEXT COLOR</label>
-
+    <label class="control">TEXT COLOR</label>
     <div class="colors">
       <button class="color white active" data-color="#ffffff"></button>
       <button class="color green" data-color="#39ff73"></button>
@@ -340,7 +352,7 @@ footer{
       <button class="color red" data-color="#ff4141"></button>
     </div>
 
-    <label>OUTLINE</label>
+    <label class="control">OUTLINE</label>
     <select id="outline">
       <option value="black">Black outline</option>
       <option value="white">White outline</option>
@@ -348,16 +360,15 @@ footer{
     </select>
 
     <div class="row">
-      <button id="upper" class="secondary">AA UPPERCASE</button>
-      <button id="duplicate" class="secondary">⧉ DUPLICATE</button>
+      <button id="upper" class="secondary">UPPERCASE</button>
+      <button id="duplicate" class="secondary">DUPLICATE</button>
     </div>
 
-    <button id="deleteText" class="danger full">DELETE SELECTED TEXT</button>
+    <button id="deleteText" class="danger full">DELETE TEXT</button>
 
     <div class="tip">
       Drag selected text directly on the meme.
     </div>
-
   </div>
 </section>
 
@@ -368,16 +379,16 @@ footer{
     <button class="sticker" data-sticker="🪖">🪖</button>
     <button class="sticker" data-sticker="🦍">🦍</button>
     <button class="sticker" data-sticker="📈">📈</button>
-    <button class="sticker" data-sticker="📉">📉</button>
+    <button class="sticker" data-sticker="🚨">🚨</button>
 
-    <button class="sticker" data-sticker="🚀">🚀</button>
-    <button class="sticker" data-sticker="💎">💎</button>
+    <button class="sticker" data-sticker="💀">💀</button>
     <button class="sticker" data-sticker="🐂">🐂</button>
-    <button class="sticker" data-sticker="🐻">🐻</button>
+    <button class="sticker" data-sticker="🔥">🔥</button>
+    <button class="sticker" data-sticker="😂">😂</button>
 
-    <button class="sticker words" data-sticker="BUILT FROM ZERO">BUILT<br>FROM ZERO</button>
-    <button class="sticker words" data-sticker="NO SURRENDER">NO<br>SURRENDER</button>
-    <button class="sticker words" data-sticker="NO RETREAT">NO<br>RETREAT</button>
+    <button class="sticker words" data-sticker="BUILT FROM ZERO">BUILT FROM ZERO</button>
+    <button class="sticker words" data-sticker="NO SURRENDER">NO SURRENDER</button>
+    <button class="sticker words" data-sticker="NO RETREAT">NO RETREAT</button>
     <button class="sticker words" data-sticker="$STNKS">$STNKS</button>
   </div>
 
@@ -389,10 +400,10 @@ footer{
 <section class="card">
   <h2>FINISH</h2>
 
-  <button id="saveBtn" class="primary full">⬇️ SAVE MEME</button>
+  <button id="saveBtn" class="primary full">💾 SAVE MEME</button>
 
   <div class="action-grid">
-    <button id="shareX" class="secondary">𝕏 SHARE</button>
+    <button id="shareX" class="secondary">𝕏 SHARE TO X</button>
     <button id="contest" class="secondary">🏆 MEME CONTEST</button>
   </div>
 
@@ -412,18 +423,120 @@ STONKERS ARMY 🪖 • $STNKS
 <script>
 const canvas=document.getElementById("canvas");
 const ctx=canvas.getContext("2d");
+const shell=document.getElementById("canvasShell");
 
 let bg=null;
 let bgX=0,bgY=0,bgZoom=1;
 let objects=[];
 let selected=null;
 let dragging=false;
-let dragDX=0,dragDY=0;
 let bgDragging=false;
-let lastPointer={x:0,y:0};
+let dragDX=0,dragDY=0;
+let lastPoint={x:0,y:0};
 
 let history=[];
 let historyIndex=-1;
+
+/*
+  ALL SIX TEMPLATE FILENAMES ARE ALREADY HERE.
+
+  Upload these exact files to the repository later
+  and the slots automatically activate.
+*/
+const templateData=[
+  {
+    name:"STONKER ZERO",
+    emoji:"🪖",
+    src:"stonker-zero.png"
+  },
+  {
+    name:"WALL STREET",
+    emoji:"📈",
+    src:"stonkers-wallstreet.png"
+  },
+  {
+    name:"THE TRENCHES",
+    emoji:"🦍",
+    src:"stonkers-trenches.png"
+  },
+  {
+    name:"EMERGENCY",
+    emoji:"🚨",
+    src:"stonkers-emergency.png"
+  },
+  {
+    name:"REKT",
+    emoji:"💀",
+    src:"stonkers-rekt.png"
+  },
+  {
+    name:"BULL MODE",
+    emoji:"🐂",
+    src:"stonkers-bull.png"
+  }
+];
+
+function buildTemplates(){
+  const holder=document.getElementById("templates");
+  holder.innerHTML="";
+
+  templateData.forEach(t=>{
+    const box=document.createElement("div");
+    box.className="template";
+
+    const test=new Image();
+
+    test.onload=()=>{
+      box.classList.add("ready");
+      box.innerHTML="";
+
+      const thumb=document.createElement("img");
+      thumb.src=t.src;
+
+      const shade=document.createElement("div");
+      shade.className="shade";
+
+      const name=document.createElement("div");
+      name.className="name";
+      name.textContent=t.emoji+" "+t.name;
+
+      box.appendChild(thumb);
+      box.appendChild(shade);
+      box.appendChild(name);
+
+      box.onclick=()=>loadTemplate(t.src);
+    };
+
+    test.onerror=()=>{
+      box.innerHTML=
+        '<div class="coming">'+
+        '<div style="font-size:24px">'+t.emoji+'</div>'+
+        '<strong>'+t.name+'</strong>'+
+        '<span>COMING SOON</span>'+
+        '</div>';
+    };
+
+    test.src=t.src+"?v="+Date.now();
+
+    holder.appendChild(box);
+  });
+}
+
+function loadTemplate(src){
+  const img=new Image();
+
+  img.onload=()=>{
+    bg=img;
+    bgX=0;
+    bgY=0;
+    bgZoom=1;
+    document.getElementById("zoom").value=1;
+    snapshot();
+    draw();
+  };
+
+  img.src=src;
+}
 
 function snapshot(){
   const state=JSON.stringify({
@@ -437,6 +550,7 @@ function snapshot(){
   history.push(state);
 
   if(history.length>30)history.shift();
+
   historyIndex=history.length-1;
 }
 
@@ -464,26 +578,19 @@ function drawPlaceholder(){
   ctx.textAlign="center";
 
   ctx.fillStyle="#39ff73";
-  ctx.font="bold 70px Arial";
+  ctx.font="bold 60px Arial";
   ctx.fillText("STONKERS",canvas.width/2,canvas.height/2-25);
 
   ctx.fillStyle="#ffffff";
-  ctx.font="34px Arial";
-  ctx.fillText(
-    "CHOOSE AN IMAGE TO START",
-    canvas.width/2,
-    canvas.height/2+45
-  );
+  ctx.font="26px Arial";
+  ctx.fillText("CHOOSE AN IMAGE TO START",canvas.width/2,canvas.height/2+30);
 
   ctx.fillStyle="#555";
-  ctx.font="24px Arial";
-  ctx.fillText(
-    "Built From Zero 🪖",
-    canvas.width/2,
-    canvas.height/2+95
-  );
+  ctx.font="20px Arial";
+  ctx.fillText("Built From Zero 🪖",canvas.width/2,canvas.height/2+75);
 }
-  function drawBackground(){
+
+function drawBackground(){
   if(!bg){
     drawPlaceholder();
     return;
@@ -492,12 +599,11 @@ function drawPlaceholder(){
   ctx.fillStyle="#000";
   ctx.fillRect(0,0,canvas.width,canvas.height);
 
-  const cover=Math.max(
+  const scale=Math.max(
     canvas.width/bg.width,
     canvas.height/bg.height
-  );
+  )*bgZoom;
 
-  const scale=cover*bgZoom;
   const w=bg.width*scale;
   const h=bg.height*scale;
 
@@ -507,141 +613,190 @@ function drawPlaceholder(){
   ctx.drawImage(bg,x,y,w,h);
 }
 
-function wrapLines(text,maxWidth){
-  const words=text.split(" ");
-  const lines=[];
-  let line="";
-
-  for(const word of words){
-    const test=line ? line+" "+word : word;
-
-    if(ctx.measureText(test).width>maxWidth && line){
-      lines.push(line);
-      line=word;
-    }else{
-      line=test;
-    }
-  }
-
-  if(line)lines.push(line);
-
-  return lines;
-}
-
-function drawObject(o,isSelected){
+function drawObject(o){
   ctx.save();
 
-  ctx.font=`900 ${o.size}px Arial`;
   ctx.textAlign="center";
   ctx.textBaseline="middle";
-  ctx.lineJoin="round";
 
-  const lines=wrapLines(o.text,canvas.width*.88);
-  const lineHeight=o.size*1.05;
-  const startY=o.y-((lines.length-1)*lineHeight)/2;
-
-  let maxW=0;
-
-  lines.forEach((line,i)=>{
-    maxW=Math.max(
-      maxW,
-      ctx.measureText(line).width
-    );
+  if(o.type==="text"){
+    ctx.font=`900 ${o.size}px Arial`;
 
     if(o.outline!=="none"){
-      ctx.strokeStyle=
-        o.outline==="white"
-        ? "#fff"
-        : "#000";
-
-      ctx.lineWidth=Math.max(
-        4,
-        o.size*.09
-      );
-
-      ctx.strokeText(
-        line,
-        o.x,
-        startY+i*lineHeight
-      );
+      ctx.lineWidth=Math.max(4,o.size*.08);
+      ctx.strokeStyle=o.outline==="white" ? "#fff" : "#000";
+      ctx.strokeText(o.text,o.x,o.y);
     }
 
     ctx.fillStyle=o.color;
+    ctx.fillText(o.text,o.x,o.y);
+  }
 
-    ctx.fillText(
-      line,
-      o.x,
-      startY+i*lineHeight
-    );
-  });
+  if(o.type==="sticker"){
+    ctx.font=`${o.size}px Arial`;
+    ctx.fillText(o.text,o.x,o.y);
+  }
 
-  o.w=maxW;
+  if(selected===o){
+    const width=getObjectWidth(o);
+    const height=o.size*1.2;
 
-  o.h=Math.max(
-    lineHeight,
-    lines.length*lineHeight
-  );
-
-  if(isSelected){
     ctx.strokeStyle="#39ff73";
-    ctx.lineWidth=5;
-    ctx.setLineDash([15,10]);
-
+    ctx.lineWidth=3;
+    ctx.setLineDash([12,8]);
     ctx.strokeRect(
-      o.x-o.w/2-18,
-      o.y-o.h/2-18,
-      o.w+36,
-      o.h+36
+      o.x-width/2-12,
+      o.y-height/2-8,
+      width+24,
+      height+16
     );
+    ctx.setLineDash([]);
   }
 
   ctx.restore();
 }
 
-function watermark(){
+function drawWatermark(){
   ctx.save();
-
   ctx.textAlign="right";
-  ctx.font="900 22px Arial";
-  ctx.lineWidth=5;
-  ctx.strokeStyle="#000";
-
-  ctx.strokeText(
-    "STONKERS 🪖",
-    canvas.width-22,
-    canvas.height-24
-  );
-
   ctx.fillStyle="#39ff73";
-
+  ctx.font="bold 18px Arial";
   ctx.fillText(
     "STONKERS 🪖",
-    canvas.width-22,
-    canvas.height-24
+    canvas.width-20,
+    canvas.height-20
   );
-
   ctx.restore();
 }
 
 function draw(){
   drawBackground();
 
-  objects.forEach(o=>
-    drawObject(o,o===selected)
-  );
+  objects.forEach(drawObject);
 
-  watermark();
+  drawWatermark();
 }
 
-draw();
-snapshot();
+function getObjectWidth(o){
+  ctx.save();
 
-document
-.getElementById("upload")
-.addEventListener("change",e=>{
+  ctx.font=
+    o.type==="text"
+    ? `900 ${o.size}px Arial`
+    : `${o.size}px Arial`;
 
+  const w=ctx.measureText(o.text).width;
+
+  ctx.restore();
+  return w;
+}
+
+function hitObject(x,y){
+  for(let i=objects.length-1;i>=0;i--){
+    const o=objects[i];
+    const w=getObjectWidth(o);
+    const h=o.size*1.3;
+
+    if(
+      x>=o.x-w/2-20 &&
+      x<=o.x+w/2+20 &&
+      y>=o.y-h/2-20 &&
+      y<=o.y+h/2+20
+    ){
+      return o;
+    }
+  }
+  return null;
+}
+
+function pointFromEvent(e){
+  const rect=canvas.getBoundingClientRect();
+
+  let clientX,clientY;
+
+  if(e.touches && e.touches.length){
+    clientX=e.touches[0].clientX;
+    clientY=e.touches[0].clientY;
+  }else{
+    clientX=e.clientX;
+    clientY=e.clientY;
+  }
+
+  return{
+    x:(clientX-rect.left)*(canvas.width/rect.width),
+    y:(clientY-rect.top)*(canvas.height/rect.height)
+  };
+}
+
+function pointerDown(e){
+  e.preventDefault();
+
+  const p=pointFromEvent(e);
+  lastPoint=p;
+
+  const hit=hitObject(p.x,p.y);
+
+  if(hit){
+    selected=hit;
+    dragging=true;
+    bgDragging=false;
+
+    dragDX=p.x-hit.x;
+    dragDY=p.y-hit.y;
+
+    updateEditor();
+    draw();
+  }else{
+    selected=null;
+    dragging=false;
+
+    if(bg){
+      bgDragging=true;
+    }
+
+    updateEditor();
+    draw();
+  }
+}
+
+function pointerMove(e){
+  if(!dragging && !bgDragging)return;
+
+  e.preventDefault();
+
+  const p=pointFromEvent(e);
+
+  if(dragging && selected){
+    selected.x=p.x-dragDX;
+    selected.y=p.y-dragDY;
+  }
+
+  if(bgDragging){
+    bgX+=p.x-lastPoint.x;
+    bgY+=p.y-lastPoint.y;
+    lastPoint=p;
+  }
+
+  draw();
+}
+
+function pointerUp(){
+  if(dragging || bgDragging)snapshot();
+
+  dragging=false;
+  bgDragging=false;
+}
+
+canvas.addEventListener("mousedown",pointerDown);
+canvas.addEventListener("mousemove",pointerMove);
+window.addEventListener("mouseup",pointerUp);
+
+canvas.addEventListener("touchstart",pointerDown,{passive:false});
+canvas.addEventListener("touchmove",pointerMove,{passive:false});
+window.addEventListener("touchend",pointerUp);
+
+document.getElementById("upload").addEventListener("change",e=>{
   const file=e.target.files[0];
-
   if(!file)return;
 
   const reader=new FileReader();
@@ -667,36 +822,50 @@ document
   reader.readAsDataURL(file);
 });
 
-document
-.getElementById("zoom")
-.addEventListener("input",e=>{
-
+document.getElementById("zoom").addEventListener("input",e=>{
   bgZoom=parseFloat(e.target.value);
-
   draw();
 });
 
-document
-.getElementById("zoom")
-.addEventListener(
-  "change",
-  snapshot
-);
+document.getElementById("zoom").addEventListener("change",snapshot);
 
-function addObject(
-  text="YOUR TEXT",
-  size=72,
-  color="#ffffff"
-){
+document.querySelectorAll(".format").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".format")
+      .forEach(b=>b.classList.remove("active"));
+
+    btn.classList.add("active");
+
+    const format=btn.dataset.format;
+
+    if(format==="square"){
+      canvas.width=1080;
+      canvas.height=1080;
+    }
+
+    if(format==="portrait"){
+      canvas.width=1080;
+      canvas.height=1350;
+    }
+
+    if(format==="wide"){
+      canvas.width=1200;
+      canvas.height=675;
+    }
+
+    draw();
+  });
+});
+
+document.getElementById("addText").onclick=()=>{
   const o={
-    text,
+    type:"text",
+    text:"STONKERS",
     x:canvas.width/2,
-    y:canvas.height/2,
-    size,
-    color,
-    outline:"black",
-    w:0,
-    h:0
+    y:canvas.height*.2,
+    size:80,
+    color:"#ffffff",
+    outline:"black"
   };
 
   objects.push(o);
@@ -705,96 +874,59 @@ function addObject(
   updateEditor();
   snapshot();
   draw();
-}
-
-document
-.getElementById("addText")
-.onclick=()=>{
-  addObject("YOUR TEXT");
 };
 
-document
-.querySelectorAll(".sticker")
-.forEach(btn=>{
-
-  btn.onclick=()=>{
-    const value=btn.dataset.sticker;
-
-    const emoji=
-      [...value].length<=3;
-
-    addObject(
-      value,
-      emoji ? 100 : 55,
-      emoji ? "#ffffff" : "#39ff73"
-    );
-  };
-});
-
 function updateEditor(){
-  const box=
-    document.getElementById("textEditor");
+  const editor=document.getElementById("textEditor");
 
-  if(!selected){
-    box.style.display="none";
+  if(!selected || selected.type!=="text"){
+    editor.style.display="none";
     return;
   }
 
-  box.style.display="block";
+  editor.style.display="block";
 
-  document
-  .getElementById("textInput")
-  .value=selected.text;
+  document.getElementById("textInput").value=selected.text;
+  document.getElementById("textSize").value=selected.size;
+  document.getElementById("outline").value=selected.outline;
 
-  document
-  .getElementById("textSize")
-  .value=selected.size;
-
-  document
-  .getElementById("outline")
-  .value=selected.outline;
-
-  document
-  .querySelectorAll(".color")
-  .forEach(b=>{
-
-    b.classList.toggle(
+  document.querySelectorAll(".color").forEach(c=>{
+    c.classList.toggle(
       "active",
-      b.dataset.color===selected.color
+      c.dataset.color===selected.color
     );
   });
 }
-  document
-.getElementById("textInput")
-.addEventListener("input",e=>{
-  if(!selected)return;
+
+document.getElementById("textInput").addEventListener("input",e=>{
+  if(!selected || selected.type!=="text")return;
 
   selected.text=e.target.value;
   draw();
 });
 
-document
-.getElementById("textInput")
-.addEventListener("change",snapshot);
+document.getElementById("textInput").addEventListener("change",snapshot);
 
-document
-.getElementById("textSize")
-.addEventListener("input",e=>{
-  if(!selected)return;
+document.getElementById("textSize").addEventListener("input",e=>{
+  if(!selected || selected.type!=="text")return;
 
-  selected.size=+e.target.value;
+  selected.size=parseInt(e.target.value);
   draw();
 });
 
-document
-.getElementById("textSize")
-.addEventListener("change",snapshot);
+document.getElementById("textSize").addEventListener("change",snapshot);
 
-document
-.querySelectorAll(".color")
-.forEach(btn=>{
+document.getElementById("outline").addEventListener("change",e=>{
+  if(!selected || selected.type!=="text")return;
+
+  selected.outline=e.target.value;
+  snapshot();
+  draw();
+});
+
+document.querySelectorAll(".color").forEach(btn=>{
   btn.onclick=()=>{
-    if(!selected)return;
+    if(!selected || selected.type!=="text")return;
 
     selected.color=btn.dataset.color;
 
@@ -804,39 +936,23 @@ document
   };
 });
 
-document
-.getElementById("outline")
-.onchange=e=>{
-  if(!selected)return;
+document.getElementById("upper").onclick=()=>{
+  if(!selected || selected.type!=="text")return;
 
-  selected.outline=e.target.value;
-
-  snapshot();
-  draw();
-};
-
-document
-.getElementById("upper")
-.onclick=()=>{
-  if(!selected)return;
-
-  selected.text=
-    selected.text.toUpperCase();
+  selected.text=selected.text.toUpperCase();
 
   updateEditor();
   snapshot();
   draw();
 };
 
-document
-.getElementById("duplicate")
-.onclick=()=>{
+document.getElementById("duplicate").onclick=()=>{
   if(!selected)return;
 
   const copy={
     ...selected,
-    x:selected.x+35,
-    y:selected.y+35
+    x:selected.x+40,
+    y:selected.y+40
   };
 
   objects.push(copy);
@@ -847,14 +963,10 @@ document
   draw();
 };
 
-document
-.getElementById("deleteText")
-.onclick=()=>{
+document.getElementById("deleteText").onclick=()=>{
   if(!selected)return;
 
-  objects=
-    objects.filter(o=>o!==selected);
-
+  objects=objects.filter(o=>o!==selected);
   selected=null;
 
   updateEditor();
@@ -862,281 +974,81 @@ document
   draw();
 };
 
-function pointerPos(e){
-  const r=
-    canvas.getBoundingClientRect();
-
-  return{
-    x:(e.clientX-r.left)*
-      (canvas.width/r.width),
-
-    y:(e.clientY-r.top)*
-      (canvas.height/r.height)
-  };
-}
-
-function hitObject(p){
-  for(
-    let i=objects.length-1;
-    i>=0;
-    i--
-  ){
-    const o=objects[i];
-
-    if(
-      p.x>=o.x-o.w/2-30 &&
-      p.x<=o.x+o.w/2+30 &&
-      p.y>=o.y-o.h/2-30 &&
-      p.y<=o.y+o.h/2+30
-    ){
-      return o;
-    }
-  }
-
-  return null;
-}
-
-canvas.addEventListener(
-  "pointerdown",
-  e=>{
-    e.preventDefault();
-
-    const p=pointerPos(e);
-    const hit=hitObject(p);
-
-    lastPointer=p;
-
-    if(hit){
-      selected=hit;
-      dragging=true;
-      bgDragging=false;
-
-      dragDX=p.x-hit.x;
-      dragDY=p.y-hit.y;
-
-      updateEditor();
-
-    }else if(bg){
-      selected=null;
-      dragging=false;
-      bgDragging=true;
-
-      updateEditor();
-
-    }else{
-      selected=null;
-      updateEditor();
-    }
-
-    try{
-      canvas.setPointerCapture(
-        e.pointerId
-      );
-    }catch(err){}
-
-    draw();
-  }
-);
-
-canvas.addEventListener(
-  "pointermove",
-  e=>{
-    if(
-      !dragging &&
-      !bgDragging
-    )return;
-
-    e.preventDefault();
-
-    const p=pointerPos(e);
-
-    if(
-      dragging &&
-      selected
-    ){
-      selected.x=p.x-dragDX;
-      selected.y=p.y-dragDY;
-    }
-
-    if(bgDragging){
-      bgX+=p.x-lastPointer.x;
-      bgY+=p.y-lastPointer.y;
-
-      lastPointer=p;
-    }
-
-    draw();
-  }
-);
-
-function stopPointer(){
-  if(
-    dragging ||
-    bgDragging
-  ){
-    snapshot();
-  }
-
-  dragging=false;
-  bgDragging=false;
-}
-
-canvas.addEventListener(
-  "pointerup",
-  stopPointer
-);
-
-canvas.addEventListener(
-  "pointercancel",
-  stopPointer
-);
-
-document
-.getElementById("undo")
-.onclick=()=>{
-  if(historyIndex>0){
-    historyIndex--;
-
-    restore(
-      history[historyIndex]
-    );
-  }
-};
-
-document
-.getElementById("redo")
-.onclick=()=>{
-  if(
-    historyIndex <
-    history.length-1
-  ){
-    historyIndex++;
-
-    restore(
-      history[historyIndex]
-    );
-  }
-};
-  document
-.querySelectorAll(".format")
-.forEach(btn=>{
+document.querySelectorAll(".sticker").forEach(btn=>{
   btn.onclick=()=>{
-    const f=btn.dataset.format;
+    const value=btn.dataset.sticker;
 
-    if(f==="square"){
-      canvas.width=1080;
-      canvas.height=1080;
-    }
+    const words=value.length>3;
 
-    if(f==="portrait"){
-      canvas.width=1080;
-      canvas.height=1350;
-    }
+    const o={
+      type:words ? "text" : "sticker",
+      text:value,
+      x:canvas.width/2,
+      y:canvas.height/2,
+      size:words ? 55 : 100,
+      color:"#39ff73",
+      outline:words ? "black" : "none"
+    };
 
-    if(f==="landscape"){
-      canvas.width=1200;
-      canvas.height=675;
-    }
+    objects.push(o);
+    selected=o;
 
-    bgX=0;
-    bgY=0;
-
-    objects.forEach(o=>{
-      o.x=Math.min(
-        o.x,
-        canvas.width*.9
-      );
-
-      o.y=Math.min(
-        o.y,
-        canvas.height*.9
-      );
-    });
-
-    document
-    .querySelectorAll(".format")
-    .forEach(b=>
-      b.classList.remove("active")
-    );
-
-    btn.classList.add("active");
-
+    updateEditor();
     snapshot();
     draw();
   };
 });
 
-document
-.getElementById("saveBtn")
-.onclick=()=>{
-  const previous=selected;
+document.getElementById("undo").onclick=()=>{
+  if(historyIndex<=0)return;
 
-  selected=null;
-  draw();
-
-  canvas.toBlob(blob=>{
-    if(!blob){
-      alert("Couldn't create meme.");
-
-      selected=previous;
-      draw();
-      return;
-    }
-
-    const url=
-      URL.createObjectURL(blob);
-
-    const a=
-      document.createElement("a");
-
-    a.href=url;
-    a.download="stonkers-meme.png";
-
-    document.body.appendChild(a);
-
-    a.click();
-    a.remove();
-
-    setTimeout(
-      ()=>URL.revokeObjectURL(url),
-      1000
-    );
-
-    selected=previous;
-    draw();
-
-  },"image/png");
+  historyIndex--;
+  restore(history[historyIndex]);
 };
 
-document
-.getElementById("shareX")
-.onclick=()=>{
-  const text=encodeURIComponent(
-    "Made this on the STONKERS Meme Maker 😂🪖\n\n$STNKS"
-  );
+document.getElementById("redo").onclick=()=>{
+  if(historyIndex>=history.length-1)return;
 
+  historyIndex++;
+  restore(history[historyIndex]);
+};
+
+document.getElementById("saveBtn").onclick=()=>{
+  const previous=selected;
+  selected=null;
+
+  draw();
+
+  const link=document.createElement("a");
+  link.download="stonkers-meme.png";
+  link.href=canvas.toDataURL("image/png");
+  link.click();
+
+  selected=previous;
+  draw();
+};
+
+document.getElementById("shareX").onclick=()=>{
   window.open(
-    "https://twitter.com/intent/tweet?text="+text,
+    "https://x.com/intent/post?text="+
+    encodeURIComponent(
+      "Made this with the STONKERS Meme Maker 😂🪖\n\n$STNKS"
+    ),
     "_blank"
   );
 };
 
-document
-.getElementById("contest")
-.onclick=()=>{
+document.getElementById("contest").onclick=()=>{
   alert(
-    "🏆 STONKERS MEME CONTEST\n\nSubmissions open October 7, 2026 and close October 14, 2026 at 11:59 PM ET.\n\nContest submission link is coming next."
+    "STONKERS Meme Contest 🪖\n\n"+
+    "Submissions open October 7, 2026.\n"+
+    "Deadline: October 14, 2026 at 11:59 PM ET.\n\n"+
+    "Save your meme and submit it in the official STONKERS Telegram Meme Contest topic."
   );
 };
 
-document
-.getElementById("reset")
-.onclick=()=>{
-  if(
-    !confirm(
-      "Reset the entire meme?"
-    )
-  )return;
+document.getElementById("reset").onclick=()=>{
+  if(!confirm("Reset the entire meme?"))return;
 
   bg=null;
   bgX=0;
@@ -1146,40 +1058,20 @@ document
   objects=[];
   selected=null;
 
-  document
-  .getElementById("upload")
-  .value="";
+  document.getElementById("upload").value="";
+  document.getElementById("zoom").value=1;
 
-  document
-  .getElementById("zoom")
-  .value=1;
+  history=[];
+  historyIndex=-1;
 
   updateEditor();
   snapshot();
   draw();
 };
- document.querySelectorAll(".template.ready").forEach(template => {
-  template.addEventListener("click", () => {
-    const src = template.dataset.src;
-    if (!src) return;
 
-    const img = new Image();
-
-    img.onload = () => {
-      bg = img;
-      bgX = 0;
-      bgY = 0;
-      bgZoom = 1;
-
-      document.getElementById("zoom").value = 1;
-
-      snapshot();
-      draw();
-    };
-
-    img.src = src;
-  });
-});
+buildTemplates();
+snapshot();
+draw();
 </script>
 
 </body>
