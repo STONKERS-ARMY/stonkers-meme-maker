@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#050706">
-<title>STONKERS Meme Maker V3</title>
+<title>STONKERS Meme Maker</title>
 
 <style>
 *{box-sizing:border-box}
+
 :root{
   --green:#39ff73;
   --bg:#050706;
@@ -16,265 +17,251 @@
   --border:#1c3826;
   --muted:#89928b;
 }
+
 body{
   margin:0;
   background:var(--bg);
   color:white;
   font-family:Arial,Helvetica,sans-serif;
 }
+
 header{
   text-align:center;
   padding:28px 14px 22px;
   border-bottom:1px solid var(--border);
 }
+
 .logo{
   color:var(--green);
-  font-size:34px;
   font-weight:900;
+  font-size:clamp(34px,9vw,58px);
   letter-spacing:2px;
 }
+
 .tagline{
   color:#aaa;
-  margin-top:8px;
-  font-size:14px;
+  margin-top:10px;
+  font-size:18px;
+  letter-spacing:1px;
 }
+
 .wrap{
-  width:min(96%,700px);
-  margin:22px auto 50px;
+  width:min(760px,100%);
+  margin:auto;
+  padding:20px 12px 60px;
 }
+
 .card{
   background:var(--panel);
   border:1px solid var(--border);
-  border-radius:18px;
-  padding:18px;
-  margin-bottom:18px;
+  border-radius:26px;
+  padding:26px;
+  margin-bottom:22px;
 }
-h2{
-  margin:0 0 8px;
+
+h1{
   color:var(--green);
-  font-size:20px;
+  font-size:26px;
+  margin:0 0 10px;
 }
+
 .sub{
   color:#bbb;
+  font-size:20px;
   line-height:1.4;
-  margin-bottom:16px;
+  margin-bottom:22px;
 }
-button,.upload{
-  border:0;
-  border-radius:12px;
-  min-height:48px;
-  padding:12px 14px;
-  font-weight:900;
-  font-size:14px;
-  cursor:pointer;
-}
-.primary{
-  background:var(--green);
-  color:#031008;
-}
-.secondary{
-  background:#1a201c;
-  color:white;
-  border:1px solid #29342d;
-}
-.danger{
-  background:#261111;
-  color:#ff8f8f;
-  border:1px solid #572626;
-}
+
 .upload{
   display:block;
   width:100%;
-  text-align:center;
   background:var(--green);
-  color:#031008;
+  color:#071009;
+  text-align:center;
+  font-weight:900;
+  font-size:18px;
+  padding:20px;
+  border-radius:18px;
+  cursor:pointer;
+  border:none;
 }
-input[type=file]{display:none}
+
+#upload{
+  display:none;
+}
 
 .section-title{
-  display:block;
-  color:#aeb5af;
-  font-size:12px;
+  margin:28px 0 14px;
+  color:#aaa;
   font-weight:900;
-  margin:20px 0 10px;
+  font-size:15px;
 }
 
 .templates{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:9px;
+  gap:12px;
 }
+
 .template{
   position:relative;
-  min-height:105px;
   overflow:hidden;
-  border-radius:14px;
-  border:1px dashed #31513a;
-  background:#111713;
-  display:flex;
-  align-items:flex-end;
-  justify-content:center;
-  text-align:center;
-  color:#7f8981;
-  padding:8px;
-}
-.template.ready{
-  border:1px solid #416c4c;
+  aspect-ratio:1/1;
+  border:1px dashed #31533b;
+  border-radius:18px;
+  background:#0d130f;
   cursor:pointer;
+  padding:0;
 }
+
 .template img{
-  position:absolute;
-  inset:0;
   width:100%;
   height:100%;
   object-fit:cover;
+  display:block;
 }
-.template .shade{
+
+.template span{
   position:absolute;
-  inset:0;
-  background:linear-gradient(transparent 40%,rgba(0,0,0,.82));
-}
-.template .name{
-  position:relative;
-  z-index:2;
+  left:0;
+  right:0;
+  bottom:0;
+  padding:18px 5px 8px;
+  text-align:center;
   font-size:11px;
   font-weight:900;
+  color:white;
+  background:linear-gradient(transparent,rgba(0,0,0,.9));
 }
-.template .coming{
-  position:absolute;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
-  font-size:11px;
-  line-height:1.35;
+
+.template.active{
+  outline:2px solid var(--green);
+  border-color:var(--green);
 }
-.format-grid{
+
+.ratios{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:8px;
+  gap:12px;
+  margin-bottom:18px;
 }
-.format.active{
+
+.ratio{
+  border:1px solid #29332c;
+  background:#171d19;
+  color:white;
+  border-radius:17px;
+  padding:18px 6px;
+  font-weight:900;
+  font-size:16px;
+}
+
+.ratio.active{
   background:var(--green);
-  color:#041108;
+  color:#071009;
 }
-.canvas-shell{
-  position:relative;
+
+.canvas-wrap{
   width:100%;
-  margin-top:14px;
-  background:#020302;
-  border:1px solid #27342b;
-  border-radius:16px;
+  border:1px solid #26352b;
+  border-radius:22px;
   overflow:hidden;
+  background:#000;
   touch-action:none;
 }
+
 canvas{
+  display:block;
   width:100%;
   height:auto;
-  display:block;
+  background:#000;
   touch-action:none;
 }
-.tip{
-  color:#89928b;
-  font-size:12px;
-  text-align:center;
-  margin-top:10px;
-  line-height:1.4;
-}
-label.control{
-  display:block;
-  color:#aeb5af;
-  font-size:12px;
-  font-weight:bold;
-  margin:14px 0 6px;
-}
-input[type=text],select{
-  width:100%;
-  background:#050706;
-  border:1px solid #343238;
-  border-radius:10px;
-  color:white;
-  padding:12px;
-  font-size:15px;
-}
-input[type=range]{width:100%}
-.row{
-  display:flex;
-  gap:8px;
-  margin-top:10px;
-}
-.row>*{flex:1}
-.toolbar{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:8px;
-  margin-top:12px;
-}
-.editor{
-  margin-top:14px;
-  background:#080b09;
-  border:1px solid #26352a;
-  border-radius:14px;
-  padding:14px;
-}
-.colors{
-  display:flex;
-  gap:10px;
-  margin-top:8px;
-}
-.color{
-  width:38px;
-  height:38px;
-  border-radius:50%;
-  border:3px solid #333;
-  flex:none;
-}
-.color.active{border-color:var(--green)}
-.white{background:#fff}
-.green{background:#39ff73}
-.black{background:#000}
-.yellow{background:#ffe84a}
-.red{background:#ff4141}
 
-.stickers{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:8px;
+.hint{
+  text-align:center;
+  color:#8d958f;
+  margin:12px 0 0;
+  font-size:14px;
 }
-.sticker{
-  background:#151b17;
-  border:1px solid #2a3b30;
-  border-radius:12px;
-  min-height:55px;
+
+.controls{
+  margin-top:22px;
+}
+
+label.control-label{
+  display:block;
+  color:#aeb5b0;
+  font-size:13px;
+  font-weight:900;
+  margin:15px 0 7px;
+}
+
+input[type="text"]{
+  width:100%;
+  background:#111713;
+  border:1px solid #29352d;
   color:white;
-  font-size:20px;
+  border-radius:13px;
+  padding:15px;
+  font-size:16px;
 }
-.sticker.words{
-  font-size:10px;
-  color:var(--green);
+
+input[type="range"]{
+  width:100%;
+  accent-color:var(--green);
 }
-.action-grid{
+
+.row{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:10px;
 }
-.full{width:100%;margin-top:10px}
-#saveBtn{
-  font-size:17px;
-  min-height:58px;
+
+button{
+  font-family:inherit;
 }
-.status{
-  margin-top:10px;
-  text-align:center;
-  font-size:12px;
-  color:#8e9a91;
+
+.action{
+  width:100%;
+  border:none;
+  border-radius:15px;
+  padding:16px 10px;
+  font-size:16px;
+  font-weight:900;
+  cursor:pointer;
 }
-footer{
+
+.green{
+  background:var(--green);
+  color:#061008;
+}
+
+.dark{
+  background:#171d19;
+  color:white;
+  border:1px solid #2b352e;
+}
+
+.small-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:15px;
+}
+
+.footer{
   text-align:center;
-  color:#666;
-  padding:15px 10px 35px;
+  color:#667069;
   font-size:12px;
+  padding-top:10px;
+}
+
+@media(max-width:520px){
+  .card{padding:20px 14px}
+  .templates{gap:9px}
+  .template span{font-size:9px}
+  .tagline{font-size:15px}
 }
 </style>
 </head>
@@ -289,308 +276,205 @@ footer{
 <main class="wrap">
 
 <section class="card">
-  <h2>STONKERS MEME MAKER V3</h2>
-  <div class="sub">
-    Wall Street has Bloomberg.<br>
-    We have this. 😂📈
-  </div>
 
-  <label class="upload">
-    📷 UPLOAD YOUR IMAGE
-    <input id="upload" type="file" accept="image/*">
-  </label>
+<h1>STONKERS MEME MAKER</h1>
 
-  <span class="section-title">OFFICIAL STONKERS TEMPLATES</span>
+<div class="sub">
+Wall Street has Bloomberg.<br>
+We have this. 😂📈
+</div>
 
-  <div class="templates" id="templates"></div>
+<label class="upload" for="upload">
+📷 UPLOAD YOUR IMAGE
+</label>
+
+<input id="upload" type="file" accept="image/*">
+
+<div class="section-title">OFFICIAL STONKERS TEMPLATES</div>
+
+<div class="templates">
+
+<button class="template" data-src="stonker-zero.png">
+<img src="stonker-zero.png" alt="Stonker Zero">
+<span>STONKER ZERO</span>
+</button>
+
+<button class="template" data-src="wall-street.png">
+<img src="wall-street.png" alt="Wall Street">
+<span>WALL STREET</span>
+</button>
+
+<button class="template" data-src="the-trenches.png">
+<img src="the-trenches.png" alt="The Trenches">
+<span>THE TRENCHES</span>
+</button>
+
+<button class="template" data-src="emergency.png">
+<img src="emergency.png" alt="Emergency">
+<span>EMERGENCY</span>
+</button>
+
+<button class="template" data-src="rekt.png">
+<img src="rekt.png" alt="Rekt">
+<span>REKT</span>
+</button>
+
+<button class="template" data-src="bull-mode.png">
+<img src="bull-mode.png" alt="Bull Mode">
+<span>BULL MODE</span>
+</button>
+
+</div>
 </section>
 
 <section class="card">
 
-  <div class="format-grid">
-    <button class="secondary format active" data-format="square">⬜ SQUARE</button>
-    <button class="secondary format" data-format="portrait">▯ PORTRAIT</button>
-    <button class="secondary format" data-format="wide">▭ WIDE</button>
-  </div>
+<div class="ratios">
 
-  <div class="canvas-shell" id="canvasShell">
-    <canvas id="canvas" width="1080" height="1080"></canvas>
-  </div>
+<button class="ratio active" data-ratio="square">
+⬜<br>SQUARE
+</button>
 
-  <div class="tip">
-    Drag the image to reposition it • Use the zoom control below
-  </div>
+<button class="ratio" data-ratio="portrait">
+▯<br>PORTRAIT
+</button>
 
-  <label class="control">BACKGROUND ZOOM</label>
-  <input id="zoom" type="range" min="1" max="3" value="1" step=".01">
+<button class="ratio" data-ratio="wide">
+▭<br>WIDE
+</button>
 
-  <div class="row">
-    <button id="undo" class="secondary">↶ UNDO</button>
-    <button id="redo" class="secondary">↷ REDO</button>
-  </div>
+</div>
+
+<div class="canvas-wrap">
+<canvas id="canvas" width="1080" height="1080"></canvas>
+</div>
+
+<div class="hint">
+Drag the image to reposition it • Use the zoom control below
+</div>
+
+<div class="controls">
+
+<label class="control-label">IMAGE ZOOM</label>
+<input id="zoom" type="range" min="0.5" max="3" value="1" step="0.01">
+
+<label class="control-label">TOP TEXT</label>
+<input id="topText" type="text" placeholder="WHEN YOU BUY THE DIP...">
+
+<label class="control-label">BOTTOM TEXT</label>
+<input id="bottomText" type="text" placeholder="...AND IT KEEPS DIPPING">
+
+<label class="control-label">TEXT SIZE</label>
+<input id="fontSize" type="range" min="28" max="110" value="68">
+
+<div class="small-actions">
+
+<button id="undo" class="action dark">
+↶ UNDO
+</button>
+
+<button id="reset" class="action dark">
+↻ RESET
+</button>
+
+</div>
+
+<div style="margin-top:12px">
+
+<button id="save" class="action green">
+⬇ SAVE MEME
+</button>
+
+</div>
+
+</div>
 </section>
 
-<section class="card">
-  <h2>TEXT</h2>
-
-  <button id="addText" class="primary full">+ ADD TEXT</button>
-
-  <div class="editor" id="textEditor" style="display:none">
-
-    <label class="control">SELECTED TEXT</label>
-    <input id="textInput" type="text" placeholder="STONKERS">
-
-    <label class="control">TEXT SIZE</label>
-    <input id="textSize" type="range" min="24" max="180" value="80">
-
-    <label class="control">TEXT COLOR</label>
-    <div class="colors">
-      <button class="color white active" data-color="#ffffff"></button>
-      <button class="color green" data-color="#39ff73"></button>
-      <button class="color black" data-color="#000000"></button>
-      <button class="color yellow" data-color="#ffe84a"></button>
-      <button class="color red" data-color="#ff4141"></button>
-    </div>
-
-    <label class="control">OUTLINE</label>
-    <select id="outline">
-      <option value="black">Black outline</option>
-      <option value="white">White outline</option>
-      <option value="none">No outline</option>
-    </select>
-
-    <div class="row">
-      <button id="upper" class="secondary">UPPERCASE</button>
-      <button id="duplicate" class="secondary">DUPLICATE</button>
-    </div>
-
-    <button id="deleteText" class="danger full">DELETE TEXT</button>
-
-    <div class="tip">
-      Drag selected text directly on the meme.
-    </div>
-  </div>
-</section>
-
-<section class="card">
-  <h2>STONKERS STICKERS</h2>
-
-  <div class="stickers">
-    <button class="sticker" data-sticker="🪖">🪖</button>
-    <button class="sticker" data-sticker="🦍">🦍</button>
-    <button class="sticker" data-sticker="📈">📈</button>
-    <button class="sticker" data-sticker="🚨">🚨</button>
-
-    <button class="sticker" data-sticker="💀">💀</button>
-    <button class="sticker" data-sticker="🐂">🐂</button>
-    <button class="sticker" data-sticker="🔥">🔥</button>
-    <button class="sticker" data-sticker="😂">😂</button>
-
-    <button class="sticker words" data-sticker="BUILT FROM ZERO">BUILT FROM ZERO</button>
-    <button class="sticker words" data-sticker="NO SURRENDER">NO SURRENDER</button>
-    <button class="sticker words" data-sticker="NO RETREAT">NO RETREAT</button>
-    <button class="sticker words" data-sticker="$STNKS">$STNKS</button>
-  </div>
-
-  <div class="tip">
-    Tap a sticker, then drag it wherever you want.
-  </div>
-</section>
-
-<section class="card">
-  <h2>FINISH</h2>
-
-  <button id="saveBtn" class="primary full">💾 SAVE MEME</button>
-
-  <div class="action-grid">
-    <button id="shareX" class="secondary">𝕏 SHARE TO X</button>
-    <button id="contest" class="secondary">🏆 MEME CONTEST</button>
-  </div>
-
-  <button id="reset" class="danger full">RESET EVERYTHING</button>
-
-  <div class="status">
-    Built From Zero • No Surrender • No Retreat
-  </div>
-</section>
+<div class="footer">
+STONKERS ARMY 🪖 • $STNKS<br><br>
+Built From Zero • No Surrender • No Retreat
+</div>
 
 </main>
 
-<footer>
-STONKERS ARMY 🪖 • $STNKS
-</footer>
-
 <script>
-const canvas=document.getElementById("canvas");
-const ctx=canvas.getContext("2d");
-const shell=document.getElementById("canvasShell");
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
 
-let bg=null;
-let bgX=0,bgY=0,bgZoom=1;
-let objects=[];
-let selected=null;
-let dragging=false;
-let bgDragging=false;
-let dragDX=0,dragDY=0;
-let lastPoint={x:0,y:0};
+const upload = document.getElementById("upload");
+const zoom = document.getElementById("zoom");
+const topText = document.getElementById("topText");
+const bottomText = document.getElementById("bottomText");
+const fontSize = document.getElementById("fontSize");
 
-let history=[];
-let historyIndex=-1;
+const saveBtn = document.getElementById("save");
+const resetBtn = document.getElementById("reset");
+const undoBtn = document.getElementById("undo");
 
-/*
-  ALL SIX TEMPLATE FILENAMES ARE ALREADY HERE.
+let bg = null;
 
-  Upload these exact files to the repository later
-  and the slots automatically activate.
-*/
-const templateData=[
-  {
-    name:"STONKER ZERO",
-    emoji:"🪖",
-    src:"stonker-zero.png"
-  },
-  {
-    name:"WALL STREET",
-    emoji:"📈",
-    src:"stonkers-wallstreet.png"
-  },
-  {
-    name:"THE TRENCHES",
-    emoji:"🦍",
-    src:"stonkers-trenches.png"
-  },
-  {
-    name:"EMERGENCY",
-    emoji:"🚨",
-    src:"stonkers-emergency.png"
-  },
-  {
-    name:"REKT",
-    emoji:"💀",
-    src:"stonkers-rekt.png"
-  },
-  {
-    name:"BULL MODE",
-    emoji:"🐂",
-    src:"stonkers-bull.png"
-  }
-];
+let bgX = 0;
+let bgY = 0;
+let bgZoom = 1;
 
-function buildTemplates(){
-  const holder=document.getElementById("templates");
-  holder.innerHTML="";
+let dragging = false;
+let lastX = 0;
+let lastY = 0;
 
-  templateData.forEach(t=>{
-    const box=document.createElement("div");
-    box.className="template";
+let history = [];
 
-    const test=new Image();
-
-    test.onload=()=>{
-      box.classList.add("ready");
-      box.innerHTML="";
-
-      const thumb=document.createElement("img");
-      thumb.src=t.src;
-
-      const shade=document.createElement("div");
-      shade.className="shade";
-
-      const name=document.createElement("div");
-      name.className="name";
-      name.textContent=t.emoji+" "+t.name;
-
-      box.appendChild(thumb);
-      box.appendChild(shade);
-      box.appendChild(name);
-
-      box.onclick=()=>loadTemplate(t.src);
-    };
-
-    test.onerror=()=>{
-      box.innerHTML=
-        '<div class="coming">'+
-        '<div style="font-size:24px">'+t.emoji+'</div>'+
-        '<strong>'+t.name+'</strong>'+
-        '<span>COMING SOON</span>'+
-        '</div>';
-    };
-
-    test.src=t.src+"?v="+Date.now();
-
-    holder.appendChild(box);
-  });
-}
-
-function loadTemplate(src){
-  const img=new Image();
-
-  img.onload=()=>{
-    bg=img;
-    bgX=0;
-    bgY=0;
-    bgZoom=1;
-    document.getElementById("zoom").value=1;
-    snapshot();
-    draw();
-  };
-
-  img.src=src;
-}
-
-function snapshot(){
-  const state=JSON.stringify({
-    bgX,bgY,bgZoom,
-    objects:objects.map(o=>({...o}))
-  });
-
-  if(history[historyIndex]===state)return;
-
-  history=history.slice(0,historyIndex+1);
-  history.push(state);
-
-  if(history.length>30)history.shift();
-
-  historyIndex=history.length-1;
-}
-
-function restore(state){
-  if(!state)return;
-
-  const s=JSON.parse(state);
-
-  bgX=s.bgX;
-  bgY=s.bgY;
-  bgZoom=s.bgZoom;
-  objects=s.objects;
-  selected=null;
-
-  document.getElementById("zoom").value=bgZoom;
-
-  updateEditor();
-  draw();
-}
+const ratios = {
+  square:[1080,1080],
+  portrait:[1080,1350],
+  wide:[1200,675]
+};
 
 function drawPlaceholder(){
-  ctx.fillStyle="#050706";
+
+  ctx.fillStyle="#000";
   ctx.fillRect(0,0,canvas.width,canvas.height);
 
   ctx.textAlign="center";
 
   ctx.fillStyle="#39ff73";
-  ctx.font="bold 60px Arial";
-  ctx.fillText("STONKERS",canvas.width/2,canvas.height/2-25);
+  ctx.font="bold 58px Arial";
+  ctx.fillText(
+    "STONKERS",
+    canvas.width/2,
+    canvas.height/2-30
+  );
 
-  ctx.fillStyle="#ffffff";
-  ctx.font="26px Arial";
-  ctx.fillText("CHOOSE AN IMAGE TO START",canvas.width/2,canvas.height/2+30);
+  ctx.fillStyle="#ddd";
+  ctx.font="28px Arial";
+  ctx.fillText(
+    "CHOOSE AN IMAGE TO START",
+    canvas.width/2,
+    canvas.height/2+25
+  );
 
   ctx.fillStyle="#555";
   ctx.font="20px Arial";
-  ctx.fillText("Built From Zero 🪖",canvas.width/2,canvas.height/2+75);
+  ctx.fillText(
+    "Built From Zero 🪖",
+    canvas.width/2,
+    canvas.height/2+70
+  );
+
+  watermark();
 }
 
-function drawBackground(){
+function coverScale(img){
+
+  const base = Math.max(
+    canvas.width/img.width,
+    canvas.height/img.height
+  );
+
+  return base * bgZoom;
+}
+
+function drawImage(){
+
   if(!bg){
     drawPlaceholder();
     return;
@@ -599,122 +483,288 @@ function drawBackground(){
   ctx.fillStyle="#000";
   ctx.fillRect(0,0,canvas.width,canvas.height);
 
-  const scale=Math.max(
-    canvas.width/bg.width,
-    canvas.height/bg.height
-  )*bgZoom;
+  const scale = coverScale(bg);
 
-  const w=bg.width*scale;
-  const h=bg.height*scale;
+  const w = bg.width * scale;
+  const h = bg.height * scale;
 
-  const x=(canvas.width-w)/2+bgX;
-  const y=(canvas.height-h)/2+bgY;
+  const x = (canvas.width-w)/2 + bgX;
+  const y = (canvas.height-h)/2 + bgY;
 
   ctx.drawImage(bg,x,y,w,h);
 }
 
-function drawObject(o){
-  ctx.save();
+function wrapText(text,maxWidth){
 
-  ctx.textAlign="center";
-  ctx.textBaseline="middle";
+  const words = text.split(" ");
+  const lines = [];
 
-  if(o.type==="text"){
-    ctx.font=`900 ${o.size}px Arial`;
+  let line="";
 
-    if(o.outline!=="none"){
-      ctx.lineWidth=Math.max(4,o.size*.08);
-      ctx.strokeStyle=o.outline==="white" ? "#fff" : "#000";
-      ctx.strokeText(o.text,o.x,o.y);
+  for(const word of words){
+
+    const test = line
+      ? line+" "+word
+      : word;
+
+    if(ctx.measureText(test).width > maxWidth && line){
+      lines.push(line);
+      line=word;
+    }else{
+      line=test;
     }
-
-    ctx.fillStyle=o.color;
-    ctx.fillText(o.text,o.x,o.y);
   }
 
-  if(o.type==="sticker"){
-    ctx.font=`${o.size}px Arial`;
-    ctx.fillText(o.text,o.x,o.y);
-  }
+  if(line) lines.push(line);
 
-  if(selected===o){
-    const width=getObjectWidth(o);
-    const height=o.size*1.2;
-
-    ctx.strokeStyle="#39ff73";
-    ctx.lineWidth=3;
-    ctx.setLineDash([12,8]);
-    ctx.strokeRect(
-      o.x-width/2-12,
-      o.y-height/2-8,
-      width+24,
-      height+16
-    );
-    ctx.setLineDash([]);
-  }
-
-  ctx.restore();
+  return lines;
 }
 
-function drawWatermark(){
-  ctx.save();
+function drawMemeText(text,position){
+
+  if(!text.trim()) return;
+
+  const size = Number(fontSize.value);
+
+  ctx.font=`900 ${size}px Arial`;
+  ctx.textAlign="center";
+  ctx.textBaseline="middle";
+  ctx.lineJoin="round";
+
+  const lines = wrapText(
+    text.toUpperCase(),
+    canvas.width*0.88
+  );
+
+  const lineHeight=size*1.08;
+
+  let startY;
+
+  if(position==="top"){
+    startY=70;
+  }else{
+    startY=
+      canvas.height -
+      70 -
+      (lines.length-1)*lineHeight;
+  }
+
+  lines.forEach((line,i)=>{
+
+    const y=startY+i*lineHeight;
+
+    ctx.strokeStyle="#000";
+    ctx.lineWidth=Math.max(8,size*.13);
+    ctx.strokeText(line,canvas.width/2,y);
+
+    ctx.fillStyle="#fff";
+    ctx.fillText(line,canvas.width/2,y);
+
+  });
+}
+
+function watermark(){
+
   ctx.textAlign="right";
+  ctx.textBaseline="bottom";
+
+  ctx.font="900 22px Arial";
+
+  ctx.strokeStyle="#000";
+  ctx.lineWidth=5;
+
+  ctx.strokeText(
+    "STONKERS 🪖",
+    canvas.width-20,
+    canvas.height-16
+  );
+
   ctx.fillStyle="#39ff73";
-  ctx.font="bold 18px Arial";
+
   ctx.fillText(
     "STONKERS 🪖",
     canvas.width-20,
-    canvas.height-20
+    canvas.height-16
   );
-  ctx.restore();
 }
 
 function draw(){
-  drawBackground();
 
-  objects.forEach(drawObject);
+  drawImage();
 
-  drawWatermark();
+  drawMemeText(
+    topText.value,
+    "top"
+  );
+
+  drawMemeText(
+    bottomText.value,
+    "bottom"
+  );
+
+  if(bg) watermark();
 }
 
-function getObjectWidth(o){
-  ctx.save();
+function loadImage(src){
 
-  ctx.font=
-    o.type==="text"
-    ? `900 ${o.size}px Arial`
-    : `${o.size}px Arial`;
+  const img=new Image();
 
-  const w=ctx.measureText(o.text).width;
+  img.onload=()=>{
 
-  ctx.restore();
-  return w;
+    bg=img;
+
+    bgX=0;
+    bgY=0;
+    bgZoom=1;
+
+    zoom.value=1;
+
+    snapshot();
+    draw();
+  };
+
+  img.onerror=()=>{
+    alert(
+      "Template image could not load. Check the filename in GitHub."
+    );
+  };
+
+  img.src=src+"?v="+Date.now();
 }
 
-function hitObject(x,y){
-  for(let i=objects.length-1;i>=0;i--){
-    const o=objects[i];
-    const w=getObjectWidth(o);
-    const h=o.size*1.3;
+document
+.querySelectorAll(".template")
+.forEach(button=>{
 
-    if(
-      x>=o.x-w/2-20 &&
-      x<=o.x+w/2+20 &&
-      y>=o.y-h/2-20 &&
-      y<=o.y+h/2+20
-    ){
-      return o;
-    }
-  }
-  return null;
-}
+  button.addEventListener("click",()=>{
 
-function pointFromEvent(e){
-  const rect=canvas.getBoundingClientRect();
+    document
+    .querySelectorAll(".template")
+    .forEach(b=>b.classList.remove("active"));
 
-  let clientX,clientY;
+    button.classList.add("active");
 
-  if(e.touches && e.touches.length){
+    loadImage(
+      button.dataset.src
+    );
+
+  });
+
+});
+
+upload.addEventListener("change",e=>{
+
+  const file=e.target.files[0];
+
+  if(!file) return;
+
+  const reader=new FileReader();
+
+  reader.onload=event=>{
+
+    const img=new Image();
+
+    img.onload=()=>{
+
+      bg=img;
+
+      bgX=0;
+      bgY=0;
+      bgZoom=1;
+
+      zoom.value=1;
+
+      document
+      .querySelectorAll(".template")
+      .forEach(b=>b.classList.remove("active"));
+
+      snapshot();
+      draw();
+    };
+
+    img.src=event.target.result;
+  };
+
+  reader.readAsDataURL(file);
+});
+
+document
+.querySelectorAll(".ratio")
+.forEach(button=>{
+
+  button.addEventListener("click",()=>{
+
+    const [w,h]=ratios[
+      button.dataset.ratio
+    ];
+
+    canvas.width=w;
+    canvas.height=h;
+
+    bgX=0;
+    bgY=0;
+
+    document
+    .querySelectorAll(".ratio")
+    .forEach(b=>b.classList.remove("active"));
+
+    button.classList.add("active");
+
+    snapshot();
+    draw();
+
+  });
+
+});
+
+zoom.addEventListener("input",()=>{
+
+  bgZoom=Number(zoom.value);
+  draw();
+
+});
+
+zoom.addEventListener("change",snapshot);
+
+topText.addEventListener(
+  "input",
+  draw
+);
+
+bottomText.addEventListener(
+  "input",
+  draw
+);
+
+fontSize.addEventListener(
+  "input",
+  draw
+);
+
+topText.addEventListener(
+  "change",
+  snapshot
+);
+
+bottomText.addEventListener(
+  "change",
+  snapshot
+);
+
+fontSize.addEventListener(
+  "change",
+  snapshot
+);
+
+function pointerPosition(e){
+
+  const rect=
+    canvas.getBoundingClientRect();
+
+  let clientX;
+  let clientY;
+
+  if(e.touches){
     clientX=e.touches[0].clientX;
     clientY=e.touches[0].clientY;
   }else{
@@ -723,355 +773,240 @@ function pointFromEvent(e){
   }
 
   return{
-    x:(clientX-rect.left)*(canvas.width/rect.width),
-    y:(clientY-rect.top)*(canvas.height/rect.height)
+    x:(clientX-rect.left)*
+      canvas.width/rect.width,
+
+    y:(clientY-rect.top)*
+      canvas.height/rect.height
   };
 }
 
 function pointerDown(e){
+
+  if(!bg) return;
+
   e.preventDefault();
 
-  const p=pointFromEvent(e);
-  lastPoint=p;
+  dragging=true;
 
-  const hit=hitObject(p.x,p.y);
+  const p=pointerPosition(e);
 
-  if(hit){
-    selected=hit;
-    dragging=true;
-    bgDragging=false;
-
-    dragDX=p.x-hit.x;
-    dragDY=p.y-hit.y;
-
-    updateEditor();
-    draw();
-  }else{
-    selected=null;
-    dragging=false;
-
-    if(bg){
-      bgDragging=true;
-    }
-
-    updateEditor();
-    draw();
-  }
+  lastX=p.x;
+  lastY=p.y;
 }
 
 function pointerMove(e){
-  if(!dragging && !bgDragging)return;
+
+  if(!dragging || !bg) return;
 
   e.preventDefault();
 
-  const p=pointFromEvent(e);
+  const p=pointerPosition(e);
 
-  if(dragging && selected){
-    selected.x=p.x-dragDX;
-    selected.y=p.y-dragDY;
-  }
+  bgX+=p.x-lastX;
+  bgY+=p.y-lastY;
 
-  if(bgDragging){
-    bgX+=p.x-lastPoint.x;
-    bgY+=p.y-lastPoint.y;
-    lastPoint=p;
-  }
+  lastX=p.x;
+  lastY=p.y;
 
   draw();
 }
 
 function pointerUp(){
-  if(dragging || bgDragging)snapshot();
 
-  dragging=false;
-  bgDragging=false;
+  if(dragging){
+    dragging=false;
+    snapshot();
+  }
 }
 
-canvas.addEventListener("mousedown",pointerDown);
-canvas.addEventListener("mousemove",pointerMove);
-window.addEventListener("mouseup",pointerUp);
+canvas.addEventListener(
+  "mousedown",
+  pointerDown
+);
 
-canvas.addEventListener("touchstart",pointerDown,{passive:false});
-canvas.addEventListener("touchmove",pointerMove,{passive:false});
-window.addEventListener("touchend",pointerUp);
+canvas.addEventListener(
+  "mousemove",
+  pointerMove
+);
 
-document.getElementById("upload").addEventListener("change",e=>{
-  const file=e.target.files[0];
-  if(!file)return;
+window.addEventListener(
+  "mouseup",
+  pointerUp
+);
 
-  const reader=new FileReader();
+canvas.addEventListener(
+  "touchstart",
+  pointerDown,
+  {passive:false}
+);
 
-  reader.onload=ev=>{
-    const img=new Image();
+canvas.addEventListener(
+  "touchmove",
+  pointerMove,
+  {passive:false}
+);
 
-    img.onload=()=>{
-      bg=img;
-      bgX=0;
-      bgY=0;
-      bgZoom=1;
+window.addEventListener(
+  "touchend",
+  pointerUp
+);
 
-      document.getElementById("zoom").value=1;
+function currentState(){
 
-      snapshot();
-      draw();
-    };
-
-    img.src=ev.target.result;
+  return{
+    bg,
+    bgX,
+    bgY,
+    bgZoom,
+    top:topText.value,
+    bottom:bottomText.value,
+    font:Number(fontSize.value),
+    width:canvas.width,
+    height:canvas.height
   };
+}
 
-  reader.readAsDataURL(file);
-});
+function snapshot(){
 
-document.getElementById("zoom").addEventListener("input",e=>{
-  bgZoom=parseFloat(e.target.value);
-  draw();
-});
+  const state=currentState();
 
-document.getElementById("zoom").addEventListener("change",snapshot);
+  history.push(state);
 
-document.querySelectorAll(".format").forEach(btn=>{
-  btn.addEventListener("click",()=>{
-    document.querySelectorAll(".format")
-      .forEach(b=>b.classList.remove("active"));
+  if(history.length>30){
+    history.shift();
+  }
+}
 
-    btn.classList.add("active");
+undoBtn.addEventListener("click",()=>{
 
-    const format=btn.dataset.format;
+  if(history.length<=1) return;
 
-    if(format==="square"){
-      canvas.width=1080;
-      canvas.height=1080;
-    }
+  history.pop();
 
-    if(format==="portrait"){
-      canvas.width=1080;
-      canvas.height=1350;
-    }
+  const state=
+    history[history.length-1];
 
-    if(format==="wide"){
-      canvas.width=1200;
-      canvas.height=675;
-    }
+  bg=state.bg;
 
-    draw();
-  });
-});
+  bgX=state.bgX;
+  bgY=state.bgY;
+  bgZoom=state.bgZoom;
 
-document.getElementById("addText").onclick=()=>{
-  const o={
-    type:"text",
-    text:"STONKERS",
-    x:canvas.width/2,
-    y:canvas.height*.2,
-    size:80,
-    color:"#ffffff",
-    outline:"black"
-  };
+  zoom.value=state.bgZoom;
 
-  objects.push(o);
-  selected=o;
+  topText.value=state.top;
+  bottomText.value=state.bottom;
 
-  updateEditor();
-  snapshot();
-  draw();
-};
+  fontSize.value=state.font;
 
-function updateEditor(){
-  const editor=document.getElementById("textEditor");
+  canvas.width=state.width;
+  canvas.height=state.height;
 
-  if(!selected || selected.type!=="text"){
-    editor.style.display="none";
-    return;
+  document
+  .querySelectorAll(".ratio")
+  .forEach(b=>b.classList.remove("active"));
+
+  if(
+    canvas.width===1080 &&
+    canvas.height===1080
+  ){
+    document
+    .querySelector(
+      '[data-ratio="square"]'
+    ).classList.add("active");
   }
 
-  editor.style.display="block";
+  if(
+    canvas.width===1080 &&
+    canvas.height===1350
+  ){
+    document
+    .querySelector(
+      '[data-ratio="portrait"]'
+    ).classList.add("active");
+  }
 
-  document.getElementById("textInput").value=selected.text;
-  document.getElementById("textSize").value=selected.size;
-  document.getElementById("outline").value=selected.outline;
+  if(
+    canvas.width===1200 &&
+    canvas.height===675
+  ){
+    document
+    .querySelector(
+      '[data-ratio="wide"]'
+    ).classList.add("active");
+  }
 
-  document.querySelectorAll(".color").forEach(c=>{
-    c.classList.toggle(
-      "active",
-      c.dataset.color===selected.color
-    );
-  });
-}
-
-document.getElementById("textInput").addEventListener("input",e=>{
-  if(!selected || selected.type!=="text")return;
-
-  selected.text=e.target.value;
   draw();
 });
 
-document.getElementById("textInput").addEventListener("change",snapshot);
-
-document.getElementById("textSize").addEventListener("input",e=>{
-  if(!selected || selected.type!=="text")return;
-
-  selected.size=parseInt(e.target.value);
-  draw();
-});
-
-document.getElementById("textSize").addEventListener("change",snapshot);
-
-document.getElementById("outline").addEventListener("change",e=>{
-  if(!selected || selected.type!=="text")return;
-
-  selected.outline=e.target.value;
-  snapshot();
-  draw();
-});
-
-document.querySelectorAll(".color").forEach(btn=>{
-  btn.onclick=()=>{
-    if(!selected || selected.type!=="text")return;
-
-    selected.color=btn.dataset.color;
-
-    updateEditor();
-    snapshot();
-    draw();
-  };
-});
-
-document.getElementById("upper").onclick=()=>{
-  if(!selected || selected.type!=="text")return;
-
-  selected.text=selected.text.toUpperCase();
-
-  updateEditor();
-  snapshot();
-  draw();
-};
-
-document.getElementById("duplicate").onclick=()=>{
-  if(!selected)return;
-
-  const copy={
-    ...selected,
-    x:selected.x+40,
-    y:selected.y+40
-  };
-
-  objects.push(copy);
-  selected=copy;
-
-  updateEditor();
-  snapshot();
-  draw();
-};
-
-document.getElementById("deleteText").onclick=()=>{
-  if(!selected)return;
-
-  objects=objects.filter(o=>o!==selected);
-  selected=null;
-
-  updateEditor();
-  snapshot();
-  draw();
-};
-
-document.querySelectorAll(".sticker").forEach(btn=>{
-  btn.onclick=()=>{
-    const value=btn.dataset.sticker;
-
-    const words=value.length>3;
-
-    const o={
-      type:words ? "text" : "sticker",
-      text:value,
-      x:canvas.width/2,
-      y:canvas.height/2,
-      size:words ? 55 : 100,
-      color:"#39ff73",
-      outline:words ? "black" : "none"
-    };
-
-    objects.push(o);
-    selected=o;
-
-    updateEditor();
-    snapshot();
-    draw();
-  };
-});
-
-document.getElementById("undo").onclick=()=>{
-  if(historyIndex<=0)return;
-
-  historyIndex--;
-  restore(history[historyIndex]);
-};
-
-document.getElementById("redo").onclick=()=>{
-  if(historyIndex>=history.length-1)return;
-
-  historyIndex++;
-  restore(history[historyIndex]);
-};
-
-document.getElementById("saveBtn").onclick=()=>{
-  const previous=selected;
-  selected=null;
-
-  draw();
-
-  const link=document.createElement("a");
-  link.download="stonkers-meme.png";
-  link.href=canvas.toDataURL("image/png");
-  link.click();
-
-  selected=previous;
-  draw();
-};
-
-document.getElementById("shareX").onclick=()=>{
-  window.open(
-    "https://x.com/intent/post?text="+
-    encodeURIComponent(
-      "Made this with the STONKERS Meme Maker 😂🪖\n\n$STNKS"
-    ),
-    "_blank"
-  );
-};
-
-document.getElementById("contest").onclick=()=>{
-  alert(
-    "STONKERS Meme Contest 🪖\n\n"+
-    "Submissions open October 7, 2026.\n"+
-    "Deadline: October 14, 2026 at 11:59 PM ET.\n\n"+
-    "Save your meme and submit it in the official STONKERS Telegram Meme Contest topic."
-  );
-};
-
-document.getElementById("reset").onclick=()=>{
-  if(!confirm("Reset the entire meme?"))return;
+resetBtn.addEventListener("click",()=>{
 
   bg=null;
+
   bgX=0;
   bgY=0;
   bgZoom=1;
 
-  objects=[];
-  selected=null;
+  zoom.value=1;
 
-  document.getElementById("upload").value="";
-  document.getElementById("zoom").value=1;
+  topText.value="";
+  bottomText.value="";
+  fontSize.value=68;
+
+  canvas.width=1080;
+  canvas.height=1080;
+
+  upload.value="";
+
+  document
+  .querySelectorAll(".template")
+  .forEach(
+    b=>b.classList.remove("active")
+  );
+
+  document
+  .querySelectorAll(".ratio")
+  .forEach(
+    b=>b.classList.remove("active")
+  );
+
+  document
+  .querySelector(
+    '[data-ratio="square"]'
+  ).classList.add("active");
 
   history=[];
-  historyIndex=-1;
 
-  updateEditor();
-  snapshot();
   draw();
-};
+  snapshot();
+});
 
-buildTemplates();
-snapshot();
+saveBtn.addEventListener("click",()=>{
+
+  if(!bg){
+    alert(
+      "Choose a STONKERS template or upload an image first."
+    );
+    return;
+  }
+
+  draw();
+
+  const link=
+    document.createElement("a");
+
+  link.download=
+    "stonkers-meme.png";
+
+  link.href=
+    canvas.toDataURL("image/png");
+
+  link.click();
+});
+
 draw();
+snapshot();
 </script>
 
 </body>
