@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#050706">
 <title>STONKERS Meme Maker</title>
 
@@ -15,86 +15,85 @@
   --panel:#0a0f0b;
   --panel2:#111713;
   --border:#1c3826;
-  --muted:#89928b;
+  --text:#f5f7f5;
+  --muted:#a6ada8;
 }
 
 body{
   margin:0;
   background:var(--bg);
-  color:white;
+  color:var(--text);
   font-family:Arial,Helvetica,sans-serif;
 }
 
 header{
   text-align:center;
-  padding:28px 14px 22px;
+  padding:42px 20px 34px;
   border-bottom:1px solid var(--border);
 }
 
-.logo{
+header h1{
   color:var(--green);
-  font-weight:900;
-  font-size:clamp(34px,9vw,58px);
+  font-size:38px;
+  margin:0 0 12px;
   letter-spacing:2px;
 }
 
-.tagline{
+header p{
+  margin:0;
   color:#aaa;
-  margin-top:10px;
-  font-size:18px;
+  font-size:17px;
   letter-spacing:1px;
 }
 
 .wrap{
-  width:min(760px,100%);
+  max-width:720px;
   margin:auto;
-  padding:20px 12px 60px;
+  padding:26px 14px 50px;
 }
 
 .card{
   background:var(--panel);
   border:1px solid var(--border);
-  border-radius:26px;
-  padding:26px;
-  margin-bottom:22px;
+  border-radius:24px;
+  padding:22px;
+  margin-bottom:26px;
 }
 
-h1{
+h2{
   color:var(--green);
-  font-size:26px;
   margin:0 0 10px;
+  font-size:26px;
 }
 
 .sub{
   color:#bbb;
-  font-size:20px;
-  line-height:1.4;
+  font-size:18px;
+  line-height:1.45;
   margin-bottom:22px;
 }
 
 .upload{
   display:block;
   width:100%;
+  border:0;
   background:var(--green);
-  color:#071009;
-  text-align:center;
+  color:#050706;
   font-weight:900;
-  font-size:18px;
-  padding:20px;
-  border-radius:18px;
+  font-size:17px;
+  padding:18px;
+  border-radius:16px;
   cursor:pointer;
-  border:none;
+  text-align:center;
 }
 
-#upload{
-  display:none;
-}
+#fileInput{display:none}
 
-.section-title{
-  margin:28px 0 14px;
+.label{
   color:#aaa;
+  font-size:13px;
   font-weight:900;
-  font-size:15px;
+  margin:28px 0 12px;
 }
 
 .templates{
@@ -105,13 +104,12 @@ h1{
 
 .template{
   position:relative;
+  border:2px solid #294433;
+  border-radius:18px;
   overflow:hidden;
   aspect-ratio:1/1;
-  border:1px dashed #31533b;
-  border-radius:18px;
-  background:#0d130f;
   cursor:pointer;
-  padding:0;
+  background:#111;
 }
 
 .template img{
@@ -123,87 +121,79 @@ h1{
 
 .template span{
   position:absolute;
+  bottom:0;
   left:0;
   right:0;
-  bottom:0;
-  padding:18px 5px 8px;
+  padding:18px 3px 7px;
   text-align:center;
-  font-size:11px;
+  font-size:12px;
   font-weight:900;
   color:white;
   background:linear-gradient(transparent,rgba(0,0,0,.9));
 }
 
 .template.active{
-  outline:2px solid var(--green);
   border-color:var(--green);
+  box-shadow:0 0 0 2px rgba(57,255,115,.18);
 }
 
 .ratios{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:12px;
-  margin-bottom:18px;
 }
 
 .ratio{
-  border:1px solid #29332c;
-  background:#171d19;
+  background:var(--panel2);
   color:white;
-  border-radius:17px;
-  padding:18px 6px;
+  border:1px solid #29322c;
+  border-radius:18px;
+  padding:20px 5px;
   font-weight:900;
   font-size:16px;
+  cursor:pointer;
 }
 
 .ratio.active{
   background:var(--green);
-  color:#071009;
+  color:#050706;
 }
 
 .canvas-wrap{
   width:100%;
-  border:1px solid #26352b;
+  margin:24px auto;
+  border:1px solid #26372c;
   border-radius:22px;
   overflow:hidden;
   background:#000;
-  touch-action:none;
 }
 
 canvas{
   display:block;
   width:100%;
   height:auto;
-  background:#000;
-  touch-action:none;
-}
-
-.hint{
-  text-align:center;
-  color:#8d958f;
-  margin:12px 0 0;
-  font-size:14px;
 }
 
 .controls{
-  margin-top:22px;
+  display:grid;
+  gap:14px;
 }
 
-label.control-label{
+.control label{
   display:block;
-  color:#aeb5b0;
   font-size:13px;
   font-weight:900;
-  margin:15px 0 7px;
+  color:#aaa;
+  margin-bottom:7px;
 }
 
 input[type="text"]{
   width:100%;
   background:#111713;
-  border:1px solid #29352d;
+  border:1px solid #2b3930;
   color:white;
   border-radius:13px;
-  padding:15px;
+  padding:14px;
   font-size:16px;
 }
 
@@ -215,53 +205,122 @@ input[type="range"]{
 .row{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:10px;
+  gap:12px;
+  margin-top:18px;
 }
 
-button{
-  font-family:inherit;
-}
-
-.action{
-  width:100%;
-  border:none;
+.btn{
+  border:0;
   border-radius:15px;
   padding:16px 10px;
-  font-size:16px;
+  font-size:15px;
   font-weight:900;
   cursor:pointer;
 }
 
-.green{
+.primary{
   background:var(--green);
-  color:#061008;
+  color:#050706;
 }
 
-.dark{
+.secondary{
   background:#171d19;
   color:white;
-  border:1px solid #2b352e;
+  border:1px solid #303a33;
 }
 
-.small-actions{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-top:15px;
+.xbtn{
+  width:100%;
+  margin-top:12px;
+  background:#f4f4f4;
+  color:#050505;
 }
 
-.footer{
+.contest{
   text-align:center;
-  color:#667069;
-  font-size:12px;
-  padding-top:10px;
+  background:
+    radial-gradient(circle at top,rgba(57,255,115,.12),transparent 45%),
+    var(--panel);
 }
 
-@media(max-width:520px){
-  .card{padding:20px 14px}
+.badge{
+  display:inline-block;
+  color:var(--green);
+  border:1px solid var(--green);
+  border-radius:999px;
+  padding:8px 12px;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:1px;
+  margin-bottom:15px;
+}
+
+.contest h2{
+  font-size:29px;
+}
+
+.contest p{
+  color:#bbb;
+  line-height:1.55;
+  font-size:16px;
+}
+
+.prize{
+  font-size:34px;
+  font-weight:900;
+  color:white;
+  margin:18px 0 4px;
+}
+
+.prize-label{
+  color:var(--green);
+  font-weight:900;
+  margin-bottom:20px;
+}
+
+.dates{
+  border:1px dashed var(--green);
+  border-radius:15px;
+  padding:14px 8px;
+  margin:18px 0;
+  color:var(--green);
+  font-weight:900;
+  line-height:1.5;
+}
+
+.coming{
+  width:100%;
+  border:0;
+  border-radius:15px;
+  padding:17px;
+  background:#1a211c;
+  color:#aaa;
+  font-size:15px;
+  font-weight:900;
+}
+
+.small{
+  color:#737b76;
+  font-size:12px;
+  line-height:1.5;
+  margin-top:13px;
+}
+
+footer{
+  text-align:center;
+  color:#69716c;
+  font-size:12px;
+  padding:10px 15px 45px;
+}
+
+footer strong{color:var(--green)}
+
+@media(max-width:480px){
+  header h1{font-size:34px}
+  .card{padding:18px}
   .templates{gap:9px}
-  .template span{font-size:9px}
-  .tagline{font-size:15px}
+  .template span{font-size:10px}
+  h2{font-size:24px}
 }
 </style>
 </head>
@@ -269,744 +328,446 @@ button{
 <body>
 
 <header>
-  <div class="logo">STONKERS 🪖</div>
-  <div class="tagline">THE INTERNET'S WALL STREET</div>
+  <h1>STONKERS 🪖</h1>
+  <p>THE INTERNET'S WALL STREET</p>
 </header>
 
 <main class="wrap">
 
 <section class="card">
+  <h2>STONKERS MEME MAKER</h2>
+  <div class="sub">
+    Wall Street has Bloomberg.<br>
+    We have this. 😂📈
+  </div>
 
-<h1>STONKERS MEME MAKER</h1>
+  <label class="upload" for="fileInput">
+    📷 UPLOAD YOUR IMAGE
+  </label>
+  <input id="fileInput" type="file" accept="image/*">
 
-<div class="sub">
-Wall Street has Bloomberg.<br>
-We have this. 😂📈
-</div>
+  <div class="label">OFFICIAL STONKERS TEMPLATES</div>
 
-<label class="upload" for="upload">
-📷 UPLOAD YOUR IMAGE
-</label>
+  <div class="templates">
 
-<input id="upload" type="file" accept="image/*">
+    <div class="template" data-img="stonker-zero.png">
+      <img src="stonker-zero.png" alt="Stonker Zero">
+      <span>STONKER ZERO</span>
+    </div>
 
-<div class="section-title">OFFICIAL STONKERS TEMPLATES</div>
+    <div class="template" data-img="wall-street.png">
+      <img src="wall-street.png" alt="Wall Street">
+      <span>WALL STREET</span>
+    </div>
 
-<div class="templates">
+    <div class="template" data-img="the-trenches.png">
+      <img src="the-trenches.png" alt="The Trenches">
+      <span>THE TRENCHES</span>
+    </div>
 
-<button class="template" data-src="stonker-zero.png">
-<img src="stonker-zero.png" alt="Stonker Zero">
-<span>STONKER ZERO</span>
-</button>
+    <div class="template" data-img="emergency.png">
+      <img src="emergency.png" alt="Emergency">
+      <span>EMERGENCY</span>
+    </div>
 
-<button class="template" data-src="wall-street.png">
-<img src="wall-street.png" alt="Wall Street">
-<span>WALL STREET</span>
-</button>
+    <div class="template" data-img="rekt.png">
+      <img src="rekt.png" alt="Rekt">
+      <span>REKT</span>
+    </div>
 
-<button class="template" data-src="the-trenches.png">
-<img src="the-trenches.png" alt="The Trenches">
-<span>THE TRENCHES</span>
-</button>
+    <div class="template" data-img="bull-mode.png">
+      <img src="bull-mode.png" alt="Bull Mode">
+      <span>BULL MODE</span>
+    </div>
 
-<button class="template" data-src="emergency.png">
-<img src="emergency.png" alt="Emergency">
-<span>EMERGENCY</span>
-</button>
-
-<button class="template" data-src="rekt.png">
-<img src="rekt.png" alt="Rekt">
-<span>REKT</span>
-</button>
-
-<button class="template" data-src="bull-mode.png">
-<img src="bull-mode.png" alt="Bull Mode">
-<span>BULL MODE</span>
-</button>
-
-</div>
+  </div>
 </section>
 
 <section class="card">
 
-<div class="ratios">
+  <div class="ratios">
+    <button class="ratio active" data-ratio="square">□<br>SQUARE</button>
+    <button class="ratio" data-ratio="portrait">▯<br>PORTRAIT</button>
+    <button class="ratio" data-ratio="wide">▭<br>WIDE</button>
+  </div>
 
-<button class="ratio active" data-ratio="square">
-⬜<br>SQUARE
-</button>
+  <div class="canvas-wrap">
+    <canvas id="canvas" width="1080" height="1080"></canvas>
+  </div>
 
-<button class="ratio" data-ratio="portrait">
-▯<br>PORTRAIT
-</button>
+  <div class="controls">
 
-<button class="ratio" data-ratio="wide">
-▭<br>WIDE
-</button>
+    <div class="control">
+      <label>TOP TEXT</label>
+      <input id="topText" type="text" maxlength="100"
+             placeholder="WHEN CT SAYS THIS ONE IS DIFFERENT">
+    </div>
 
-</div>
+    <div class="control">
+      <label>BOTTOM TEXT</label>
+      <input id="bottomText" type="text" maxlength="100"
+             placeholder="AND YOU BUY ANYWAY">
+    </div>
 
-<div class="canvas-wrap">
-<canvas id="canvas" width="1080" height="1080"></canvas>
-</div>
+    <div class="control">
+      <label>TEXT SIZE</label>
+      <input id="fontSize" type="range" min="35" max="110" value="68">
+    </div>
 
-<div class="hint">
-Drag the image to reposition it • Use the zoom control below
-</div>
+  </div>
 
-<div class="controls">
+  <div class="row">
+    <button id="saveBtn" class="btn primary">⬇ SAVE MEME</button>
+    <button id="resetBtn" class="btn secondary">↻ RESET</button>
+  </div>
 
-<label class="control-label">IMAGE ZOOM</label>
-<input id="zoom" type="range" min="0.5" max="3" value="1" step="0.01">
+  <button id="shareBtn" class="btn xbtn">
+    𝕏 SHARE ON X
+  </button>
+  <a href="https://t.me/+z7cZCcFiBRIIMzU5"
+   target="_blank"
+   rel="noopener noreferrer"
+   class="btn xbtn"
+   style="display:block;text-align:center;text-decoration:none;margin-top:12px;">
+  💬 JOIN STONKERS TELEGRAM
+  </a>
 
-<label class="control-label">TOP TEXT</label>
-<input id="topText" type="text" placeholder="WHEN YOU BUY THE DIP...">
+  <div class="small">
+    Save your meme first, then attach the image when X opens.
+  </div>
 
-<label class="control-label">BOTTOM TEXT</label>
-<input id="bottomText" type="text" placeholder="...AND IT KEEPS DIPPING">
-
-<label class="control-label">TEXT SIZE</label>
-<input id="fontSize" type="range" min="28" max="110" value="68">
-
-<div class="small-actions">
-
-<button id="undo" class="action dark">
-↶ UNDO
-</button>
-
-<button id="reset" class="action dark">
-↻ RESET
-</button>
-
-</div>
-
-<div style="margin-top:12px">
-
-<button id="save" class="action green">
-⬇ SAVE MEME
-</button>
-
-</div>
-
-</div>
 </section>
 
-<div class="footer">
-STONKERS ARMY 🪖 • $STNKS<br><br>
-Built From Zero • No Surrender • No Retreat
-</div>
+<section class="card contest">
+
+  <div class="badge">🏆 OFFICIAL STONKERS MEME CONTEST</div>
+
+  <h2>THINK YOU CAN COOK?</h2>
+
+  <p>
+    Create your best original STONKERS meme and bring it to the trenches.
+    The community is just getting started — help shape the culture.
+  </p>
+
+  <div class="prize">$25</div>
+  <div class="prize-label">PRIZE POOL — PAID IN SOL</div>
+
+  <p>
+    🥇 $15 &nbsp; • &nbsp;
+    🥈 $7 &nbsp; • &nbsp;
+    🥉 $3
+  </p>
+
+  <div class="dates">
+    SUBMISSIONS OPEN OCTOBER 7, 2026<br>
+    CLOSE OCTOBER 14 • 11:59 PM ET
+  </div>
+
+  <button class="coming">
+    🪖 SUBMISSIONS OPEN OCTOBER 7
+  </button>
+
+  <div class="small">
+    Maximum 3 entries per person. Original work only.
+    Participants must be 18+ and able to receive SOL.
+    Full contest rules are posted in the official STONKERS Telegram.
+  </div>
+
+</section>
 
 </main>
+
+<footer>
+  <strong>STONKERS ARMY 🪖</strong><br><br>
+  Built From Zero • No Surrender • No Retreat<br><br>
+  $STNKS
+</footer>
 
 <script>
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-const upload = document.getElementById("upload");
-const zoom = document.getElementById("zoom");
+const fileInput = document.getElementById("fileInput");
 const topText = document.getElementById("topText");
 const bottomText = document.getElementById("bottomText");
 const fontSize = document.getElementById("fontSize");
 
-const saveBtn = document.getElementById("save");
-const resetBtn = document.getElementById("reset");
-const undoBtn = document.getElementById("undo");
+const saveBtn = document.getElementById("saveBtn");
+const resetBtn = document.getElementById("resetBtn");
+const shareBtn = document.getElementById("shareBtn");
+
+const templates = document.querySelectorAll(".template");
+const ratios = document.querySelectorAll(".ratio");
 
 let bg = null;
+let currentRatio = "square";
 
-let bgX = 0;
-let bgY = 0;
-let bgZoom = 1;
+function setCanvasSize(type){
+  currentRatio = type;
 
-let dragging = false;
-let lastX = 0;
-let lastY = 0;
+  if(type === "square"){
+    canvas.width = 1080;
+    canvas.height = 1080;
+  }
 
-let history = [];
+  if(type === "portrait"){
+    canvas.width = 1080;
+    canvas.height = 1350;
+  }
 
-const ratios = {
-  square:[1080,1080],
-  portrait:[1080,1350],
-  wide:[1200,675]
-};
+  if(type === "wide"){
+    canvas.width = 1200;
+    canvas.height = 675;
+  }
 
-function drawPlaceholder(){
+  draw();
+}
 
-  ctx.fillStyle="#000";
+function loadImage(src){
+  const img = new Image();
+
+  img.onload = () => {
+    bg = img;
+    draw();
+  };
+
+  img.onerror = () => {
+    alert("That image could not be loaded.");
+  };
+
+  img.src = src;
+}
+
+function drawCover(img){
+  const cw = canvas.width;
+  const ch = canvas.height;
+
+  const ir = img.width / img.height;
+  const cr = cw / ch;
+
+  let sx = 0;
+  let sy = 0;
+  let sw = img.width;
+  let sh = img.height;
+
+  if(ir > cr){
+    sw = img.height * cr;
+    sx = (img.width - sw) / 2;
+  }else{
+    sh = img.width / cr;
+    sy = (img.height - sh) / 2;
+  }
+
+  ctx.drawImage(
+    img,
+    sx, sy, sw, sh,
+    0, 0, cw, ch
+  );
+}
+
+function fitText(text,maxWidth,startSize){
+  let size = startSize;
+
+  while(size > 28){
+    ctx.font = `900 ${size}px Arial, Helvetica, sans-serif`;
+
+    if(ctx.measureText(text).width <= maxWidth){
+      break;
+    }
+
+    size -= 2;
+  }
+
+  return size;
+}
+
+function drawMemeText(text,y,isBottom){
+  if(!text.trim()) return;
+
+  const value = text.toUpperCase();
+  const maxWidth = canvas.width * .88;
+  const base = Number(fontSize.value);
+
+  const size = fitText(value,maxWidth,base);
+
+  ctx.font = `900 ${size}px Arial, Helvetica, sans-serif`;
+  ctx.textAlign = "center";
+  ctx.textBaseline = isBottom ? "bottom" : "top";
+
+  ctx.lineJoin = "round";
+  ctx.lineWidth = Math.max(6,size * .12);
+
+  ctx.strokeStyle = "#000";
+  ctx.fillStyle = "#fff";
+
+  ctx.strokeText(value,canvas.width/2,y);
+  ctx.fillText(value,canvas.width/2,y);
+}
+
+function placeholder(){
+  ctx.fillStyle = "#000";
   ctx.fillRect(0,0,canvas.width,canvas.height);
 
-  ctx.textAlign="center";
+  ctx.textAlign = "center";
 
-  ctx.fillStyle="#39ff73";
-  ctx.font="bold 58px Arial";
+  ctx.fillStyle = "#39ff73";
+  ctx.font = "900 60px Arial";
   ctx.fillText(
     "STONKERS",
     canvas.width/2,
-    canvas.height/2-30
+    canvas.height/2 - 20
   );
 
-  ctx.fillStyle="#ddd";
-  ctx.font="28px Arial";
+  ctx.fillStyle = "#aaa";
+  ctx.font = "24px Arial";
   ctx.fillText(
     "CHOOSE AN IMAGE TO START",
     canvas.width/2,
-    canvas.height/2+25
+    canvas.height/2 + 35
   );
 
-  ctx.fillStyle="#555";
-  ctx.font="20px Arial";
+  ctx.fillStyle = "#555";
+  ctx.font = "18px Arial";
   ctx.fillText(
     "Built From Zero 🪖",
     canvas.width/2,
-    canvas.height/2+70
+    canvas.height/2 + 75
+  );
+}
+
+function watermark(){
+  if(!bg) return;
+
+  ctx.save();
+
+  ctx.textAlign = "right";
+  ctx.textBaseline = "bottom";
+  ctx.font = "900 22px Arial";
+  ctx.fillStyle = "#39ff73";
+
+  ctx.fillText(
+    "STONKERS 🪖",
+    canvas.width - 24,
+    canvas.height - 20
+  );
+
+  ctx.restore();
+}
+
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  if(!bg){
+    placeholder();
+    return;
+  }
+
+  drawCover(bg);
+
+  drawMemeText(
+    topText.value,
+    canvas.height * .045,
+    false
+  );
+
+  drawMemeText(
+    bottomText.value,
+    canvas.height * .955,
+    true
   );
 
   watermark();
 }
 
-function coverScale(img){
+templates.forEach(template => {
+  template.addEventListener("click",() => {
 
-  const base = Math.max(
-    canvas.width/img.width,
-    canvas.height/img.height
-  );
+    templates.forEach(t => t.classList.remove("active"));
+    template.classList.add("active");
 
-  return base * bgZoom;
-}
-
-function drawImage(){
-
-  if(!bg){
-    drawPlaceholder();
-    return;
-  }
-
-  ctx.fillStyle="#000";
-  ctx.fillRect(0,0,canvas.width,canvas.height);
-
-  const scale = coverScale(bg);
-
-  const w = bg.width * scale;
-  const h = bg.height * scale;
-
-  const x = (canvas.width-w)/2 + bgX;
-  const y = (canvas.height-h)/2 + bgY;
-
-  ctx.drawImage(bg,x,y,w,h);
-}
-
-function wrapText(text,maxWidth){
-
-  const words = text.split(" ");
-  const lines = [];
-
-  let line="";
-
-  for(const word of words){
-
-    const test = line
-      ? line+" "+word
-      : word;
-
-    if(ctx.measureText(test).width > maxWidth && line){
-      lines.push(line);
-      line=word;
-    }else{
-      line=test;
-    }
-  }
-
-  if(line) lines.push(line);
-
-  return lines;
-}
-
-function drawMemeText(text,position){
-
-  if(!text.trim()) return;
-
-  const size = Number(fontSize.value);
-
-  ctx.font=`900 ${size}px Arial`;
-  ctx.textAlign="center";
-  ctx.textBaseline="middle";
-  ctx.lineJoin="round";
-
-  const lines = wrapText(
-    text.toUpperCase(),
-    canvas.width*0.88
-  );
-
-  const lineHeight=size*1.08;
-
-  let startY;
-
-  if(position==="top"){
-    startY=70;
-  }else{
-    startY=
-      canvas.height -
-      70 -
-      (lines.length-1)*lineHeight;
-  }
-
-  lines.forEach((line,i)=>{
-
-    const y=startY+i*lineHeight;
-
-    ctx.strokeStyle="#000";
-    ctx.lineWidth=Math.max(8,size*.13);
-    ctx.strokeText(line,canvas.width/2,y);
-
-    ctx.fillStyle="#fff";
-    ctx.fillText(line,canvas.width/2,y);
-
+    loadImage(template.dataset.img);
   });
-}
-
-function watermark(){
-
-  ctx.textAlign="right";
-  ctx.textBaseline="bottom";
-
-  ctx.font="900 22px Arial";
-
-  ctx.strokeStyle="#000";
-  ctx.lineWidth=5;
-
-  ctx.strokeText(
-    "STONKERS 🪖",
-    canvas.width-20,
-    canvas.height-16
-  );
-
-  ctx.fillStyle="#39ff73";
-
-  ctx.fillText(
-    "STONKERS 🪖",
-    canvas.width-20,
-    canvas.height-16
-  );
-}
-
-function draw(){
-
-  drawImage();
-
-  drawMemeText(
-    topText.value,
-    "top"
-  );
-
-  drawMemeText(
-    bottomText.value,
-    "bottom"
-  );
-
-  if(bg) watermark();
-}
-
-function loadImage(src){
-
-  const img=new Image();
-
-  img.onload=()=>{
-
-    bg=img;
-
-    bgX=0;
-    bgY=0;
-    bgZoom=1;
-
-    zoom.value=1;
-
-    snapshot();
-    draw();
-  };
-
-  img.onerror=()=>{
-    alert(
-      "Template image could not load. Check the filename in GitHub."
-    );
-  };
-
-  img.src=src+"?v="+Date.now();
-}
-
-document
-.querySelectorAll(".template")
-.forEach(button=>{
-
-  button.addEventListener("click",()=>{
-
-    document
-    .querySelectorAll(".template")
-    .forEach(b=>b.classList.remove("active"));
-
-    button.classList.add("active");
-
-    loadImage(
-      button.dataset.src
-    );
-
-  });
-
 });
 
-upload.addEventListener("change",e=>{
+ratios.forEach(button => {
+  button.addEventListener("click",() => {
 
-  const file=e.target.files[0];
+    ratios.forEach(r => r.classList.remove("active"));
+    button.classList.add("active");
+
+    setCanvasSize(button.dataset.ratio);
+  });
+});
+
+fileInput.addEventListener("change",event => {
+  const file = event.target.files[0];
 
   if(!file) return;
 
-  const reader=new FileReader();
+  templates.forEach(t => t.classList.remove("active"));
 
-  reader.onload=event=>{
+  const reader = new FileReader();
 
-    const img=new Image();
-
-    img.onload=()=>{
-
-      bg=img;
-
-      bgX=0;
-      bgY=0;
-      bgZoom=1;
-
-      zoom.value=1;
-
-      document
-      .querySelectorAll(".template")
-      .forEach(b=>b.classList.remove("active"));
-
-      snapshot();
-      draw();
-    };
-
-    img.src=event.target.result;
+  reader.onload = e => {
+    loadImage(e.target.result);
   };
 
   reader.readAsDataURL(file);
 });
 
-document
-.querySelectorAll(".ratio")
-.forEach(button=>{
+topText.addEventListener("input",draw);
+bottomText.addEventListener("input",draw);
+fontSize.addEventListener("input",draw);
 
-  button.addEventListener("click",()=>{
+resetBtn.addEventListener("click",() => {
+  bg = null;
 
-    const [w,h]=ratios[
-      button.dataset.ratio
-    ];
+  topText.value = "";
+  bottomText.value = "";
+  fontSize.value = 68;
 
-    canvas.width=w;
-    canvas.height=h;
-
-    bgX=0;
-    bgY=0;
-
-    document
-    .querySelectorAll(".ratio")
-    .forEach(b=>b.classList.remove("active"));
-
-    button.classList.add("active");
-
-    snapshot();
-    draw();
-
-  });
-
-});
-
-zoom.addEventListener("input",()=>{
-
-  bgZoom=Number(zoom.value);
-  draw();
-
-});
-
-zoom.addEventListener("change",snapshot);
-
-topText.addEventListener(
-  "input",
-  draw
-);
-
-bottomText.addEventListener(
-  "input",
-  draw
-);
-
-fontSize.addEventListener(
-  "input",
-  draw
-);
-
-topText.addEventListener(
-  "change",
-  snapshot
-);
-
-bottomText.addEventListener(
-  "change",
-  snapshot
-);
-
-fontSize.addEventListener(
-  "change",
-  snapshot
-);
-
-function pointerPosition(e){
-
-  const rect=
-    canvas.getBoundingClientRect();
-
-  let clientX;
-  let clientY;
-
-  if(e.touches){
-    clientX=e.touches[0].clientX;
-    clientY=e.touches[0].clientY;
-  }else{
-    clientX=e.clientX;
-    clientY=e.clientY;
-  }
-
-  return{
-    x:(clientX-rect.left)*
-      canvas.width/rect.width,
-
-    y:(clientY-rect.top)*
-      canvas.height/rect.height
-  };
-}
-
-function pointerDown(e){
-
-  if(!bg) return;
-
-  e.preventDefault();
-
-  dragging=true;
-
-  const p=pointerPosition(e);
-
-  lastX=p.x;
-  lastY=p.y;
-}
-
-function pointerMove(e){
-
-  if(!dragging || !bg) return;
-
-  e.preventDefault();
-
-  const p=pointerPosition(e);
-
-  bgX+=p.x-lastX;
-  bgY+=p.y-lastY;
-
-  lastX=p.x;
-  lastY=p.y;
-
-  draw();
-}
-
-function pointerUp(){
-
-  if(dragging){
-    dragging=false;
-    snapshot();
-  }
-}
-
-canvas.addEventListener(
-  "mousedown",
-  pointerDown
-);
-
-canvas.addEventListener(
-  "mousemove",
-  pointerMove
-);
-
-window.addEventListener(
-  "mouseup",
-  pointerUp
-);
-
-canvas.addEventListener(
-  "touchstart",
-  pointerDown,
-  {passive:false}
-);
-
-canvas.addEventListener(
-  "touchmove",
-  pointerMove,
-  {passive:false}
-);
-
-window.addEventListener(
-  "touchend",
-  pointerUp
-);
-
-function currentState(){
-
-  return{
-    bg,
-    bgX,
-    bgY,
-    bgZoom,
-    top:topText.value,
-    bottom:bottomText.value,
-    font:Number(fontSize.value),
-    width:canvas.width,
-    height:canvas.height
-  };
-}
-
-function snapshot(){
-
-  const state=currentState();
-
-  history.push(state);
-
-  if(history.length>30){
-    history.shift();
-  }
-}
-
-undoBtn.addEventListener("click",()=>{
-
-  if(history.length<=1) return;
-
-  history.pop();
-
-  const state=
-    history[history.length-1];
-
-  bg=state.bg;
-
-  bgX=state.bgX;
-  bgY=state.bgY;
-  bgZoom=state.bgZoom;
-
-  zoom.value=state.bgZoom;
-
-  topText.value=state.top;
-  bottomText.value=state.bottom;
-
-  fontSize.value=state.font;
-
-  canvas.width=state.width;
-  canvas.height=state.height;
+  templates.forEach(t => t.classList.remove("active"));
+  ratios.forEach(r => r.classList.remove("active"));
 
   document
-  .querySelectorAll(".ratio")
-  .forEach(b=>b.classList.remove("active"));
+    .querySelector('[data-ratio="square"]')
+    .classList.add("active");
 
-  if(
-    canvas.width===1080 &&
-    canvas.height===1080
-  ){
-    document
-    .querySelector(
-      '[data-ratio="square"]'
-    ).classList.add("active");
-  }
-
-  if(
-    canvas.width===1080 &&
-    canvas.height===1350
-  ){
-    document
-    .querySelector(
-      '[data-ratio="portrait"]'
-    ).classList.add("active");
-  }
-
-  if(
-    canvas.width===1200 &&
-    canvas.height===675
-  ){
-    document
-    .querySelector(
-      '[data-ratio="wide"]'
-    ).classList.add("active");
-  }
-
-  draw();
+  setCanvasSize("square");
 });
 
-resetBtn.addEventListener("click",()=>{
-
-  bg=null;
-
-  bgX=0;
-  bgY=0;
-  bgZoom=1;
-
-  zoom.value=1;
-
-  topText.value="";
-  bottomText.value="";
-  fontSize.value=68;
-
-  canvas.width=1080;
-  canvas.height=1080;
-
-  upload.value="";
-
-  document
-  .querySelectorAll(".template")
-  .forEach(
-    b=>b.classList.remove("active")
-  );
-
-  document
-  .querySelectorAll(".ratio")
-  .forEach(
-    b=>b.classList.remove("active")
-  );
-
-  document
-  .querySelector(
-    '[data-ratio="square"]'
-  ).classList.add("active");
-
-  history=[];
-
-  draw();
-  snapshot();
-});
-
-saveBtn.addEventListener("click",()=>{
-
+saveBtn.addEventListener("click",() => {
   if(!bg){
-    alert(
-      "Choose a STONKERS template or upload an image first."
-    );
+    alert("Choose a STONKERS template or upload an image first.");
     return;
   }
 
   draw();
 
-  const link=
-    document.createElement("a");
-
-  link.download=
-    "stonkers-meme.png";
-
-  link.href=
-    canvas.toDataURL("image/png");
-
+  const link = document.createElement("a");
+  link.download = "stonkers-meme.png";
+  link.href = canvas.toDataURL("image/png");
   link.click();
 });
 
+shareBtn.addEventListener("click",() => {
+
+  const text =
+`Made this with the STONKERS Meme Maker 🪖😂
+
+Built From Zero.
+
+$STNKS`;
+
+  const url =
+    "https://twitter.com/intent/tweet?text=" +
+    encodeURIComponent(text);
+
+  window.open(url,"_blank");
+});
+
+setCanvasSize("square");
 draw();
-snapshot();
 </script>
 
 </body>
